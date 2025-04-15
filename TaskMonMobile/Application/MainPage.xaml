@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaskMonMobile.MainPage"
+    x:DataType="viewmodels:MainPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:controls="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    xmlns:viewmodels="clr-namespace:TaskMonMobile.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Start"
+                Margin="0,0,0,20"
+                Text="{Binding CurrentSurvey.Title}" />
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding CurrentSurvey.Modules}" Spacing="15">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:ModuleViewModel">
+                        <Frame
+                            BackgroundColor="LightGray"
+                            CornerRadius="5"
+                            HasShadow="True"
+                            Margin="0,0,0,10"
+                            Padding="10">
+                            <VerticalStackLayout Spacing="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding ModuleTitle}" />
+                                    <Label
+                                        FontSize="18"
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Text="{Binding ModuleRatingDisplay}" />
+                                </Grid>
+
+                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Themes}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="viewmodels:ThemeViewModel">
+                                            <Frame
+                                                BackgroundColor="White"
+                                                CornerRadius="5"
+                                                HasShadow="True"
+                                                Margin="0,5,0,5"
+                                                Padding="10">
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="18"
+                                                            Text="{Binding ThemeTitle}" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            Grid.Column="1"
+                                                            HorizontalOptions="End"
+                                                            Text="{Binding ThemeRatingDisplay}" />
+                                                    </Grid>
+
+                                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate x:DataType="viewmodels:LessonViewModel">
+                                                                <Grid Margin="0,5,0,5">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="120" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                    </Grid.RowDefinitions>
+                                                                    <Label FontSize="16" Text="{Binding LessonTitleWithType}" />
+                                                                    <Label
+                                                                        FontSize="14"
+                                                                        Grid.Row="1"
+                                                                        Margin="0,5,0,0"
+                                                                        Text="{Binding LessonRatingDisplay}" />
+                                                                    <Entry
+                                                                        Grid.Column="1"
+                                                                        HorizontalOptions="End"
+                                                                        Keyboard="Numeric"
+                                                                        Placeholder="Оцініть"
+                                                                        Text="{Binding LessonRatingText, Mode=TwoWay}"
+                                                                        WidthRequest="100" />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </VerticalStackLayout>
+                                                </VerticalStackLayout>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
