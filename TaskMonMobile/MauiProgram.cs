@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Refit;
+using SurveyService.Client;
 using UraniumUI;
 
 namespace TaskMonMobile;
@@ -17,6 +19,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+        
+        builder.Services.AddRefitClient<ISurveyClient>().ConfigureHttpClient(c => c.BaseAddress = new Uri("https://surveysmock-cwchemf4gtgbgcfz.polandcentral-01.azurewebsites.net"));
 
 #if DEBUG
         builder.Logging.AddDebug();
