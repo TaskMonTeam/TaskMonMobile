@@ -60,11 +60,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
         <PackageReference Include="Refit" Version="8.0.0" />
         <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
-        <PackageReference Include="surveyservice.client" Version="0.0.1" />
+        <PackageReference Include="taskmon.surveyservice.client" Version="0.0.2" />
         <PackageReference Include="UraniumUI.Material" Version="2.11.1" />
     </ItemGroup>
 
@@ -76,6 +77,9 @@
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="Application\MainPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Application\Survey\SurveyPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
@@ -91,6 +95,9 @@
       </Compile>
       <Compile Update="Application\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\Survey\SurveyPage.xaml.cs">
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

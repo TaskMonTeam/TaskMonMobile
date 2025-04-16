@@ -1,15 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="TaskMonMobile.MainPage"
-    x:DataType="viewmodels:MainPageViewModel"
+    x:Class="TaskMonMobile.SurveyPage"
+    x:DataType="viewmodels:SurveyPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:controls="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:viewmodels="clr-namespace:TaskMonMobile.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-    <ContentPage.BindingContext>
-        <viewmodels:MainPageViewModel />
-    </ContentPage.BindingContext>
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
@@ -18,9 +13,9 @@
                 FontSize="24"
                 HorizontalOptions="Start"
                 Margin="0,0,0,20"
-                Text="{Binding CurrentSurvey.Title}" />
+                Text="{Binding Title}" />
 
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding CurrentSurvey.Modules}" Spacing="15">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Modules}" Spacing="15">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:ModuleViewModel">
                         <Frame
@@ -111,6 +106,13 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
+            <!--<Button
+                BackgroundColor="#512BD4"
+                Clicked="OnLogoutButtonClicked"
+                Margin="30,10,30,20"
+                Text="Logout"
+                TextColor="White"
+                x:Name="LogoutButton" />-->
         </VerticalStackLayout>
     </ScrollView>
 
