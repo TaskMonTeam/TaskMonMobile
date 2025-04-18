@@ -3,9 +3,24 @@ using TaskMonMobile.ViewModels;
 
 namespace TaskMonMobile;
 
+[QueryProperty(nameof(SurveyId), "surveyId")]
 public partial class SurveyPage : ContentPage
 {
     private readonly SurveyPageViewModel _viewModel;
+    private string _surveyId;
+
+    public string SurveyId
+    {
+        get => _surveyId;
+        set
+        {
+            _surveyId = value;
+            if (Guid.TryParse(value, out Guid surveyId))
+            {
+                _viewModel.Id = surveyId;
+            }
+        }
+    }
 
     public SurveyPage(ISurveyClient surveyClient)
     {

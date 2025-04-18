@@ -23,12 +23,12 @@ namespace TaskMonMobile.ViewModels
             _surveyClient = surveyClient;
             Modules = new ObservableCollection<ModuleViewModel>();
         }
-
+        
         public async Task LoadSurveyDataAsync()
         {
             try
             {
-                var survey = await _surveyClient.GetSurveyAsync(Guid.Empty);
+                var survey = await _surveyClient.GetSurveyAsync(Id);
                 LoadFromModel(survey);
             }
             catch (Exception ex)

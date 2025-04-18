@@ -106,13 +106,6 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
-            <!--<Button
-                BackgroundColor="#512BD4"
-                Clicked="OnLogoutButtonClicked"
-                Margin="30,10,30,20"
-                Text="Logout"
-                TextColor="White"
-                x:Name="LogoutButton" />-->
         </VerticalStackLayout>
     </ScrollView>
 

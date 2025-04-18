@@ -11,9 +11,13 @@
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="LoginPage"
         Title="Login" />-->
-    <ShellContent
+    <!--<ShellContent
         ContentTemplate="{DataTemplate local:SurveyPage}"
         Route="SurveyPage"
-        Title="Survey" />
+        Title="Survey" />-->
+    <ShellContent
+        ContentTemplate="{DataTemplate local:SurveyGroupPage}"
+        Route="SurveyGroupPage"
+        Title="SurveyGroup" />
 
 </Shell>

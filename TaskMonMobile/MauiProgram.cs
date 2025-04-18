@@ -22,6 +22,8 @@ public static class MauiProgram
         
         builder.Services.AddRefitClient<ISurveyClient>().ConfigureHttpClient(c => c.BaseAddress = new Uri("https://surveysmock-cwchemf4gtgbgcfz.polandcentral-01.azurewebsites.net"));
         //builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<SurveyPage>();
+        builder.Services.AddTransient<SurveyGroupPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
