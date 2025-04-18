@@ -2,6 +2,7 @@ using SurveyService.Client;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using SurveyService.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TaskMonMobile.ViewModels
 {
@@ -17,6 +18,9 @@ namespace TaskMonMobile.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<ModuleViewModel> _modules;
+        
+        [ObservableProperty]
+        private bool _isSubmitting;
 
         public SurveyPageViewModel(ISurveyClient surveyClient)
         {
@@ -46,6 +50,55 @@ namespace TaskMonMobile.ViewModels
             foreach (var module in survey.Modules)
             {
                 Modules.Add(ModuleViewModel.FromModel(module));
+            }
+        }
+        
+        [RelayCommand]
+        private async Task SubmitSurvey()
+        {
+            if (IsSubmitting)
+                return;
+
+            try
+            {
+                IsSubmitting = true;
+                var assessments = new List<Assessment>();
+                
+                foreach (var module in Modules)
+                {
+                    foreach (var theme in module.Themes)
+                    {
+                        foreach (var lesson in theme.Lessons)
+                        {
+                            if (lesson.Rating > 0)
+                            {
+                                var assessment = new Assessment(
+                                    lesson.Id,
+                                    lesson.Rating
+                                );
+                                assessments.Add(assessment);
+                            }
+                        }
+                    }
+                }
+                
+                if (assessments.Count == 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Попередження", "Немає жодної оцінки для відправки. Будь ласка, оцініть хоча б одне завдання.", "OK");
+                    return;
+                }
+                
+                var submission = new Submission(assessments);
+                await _surveyClient.SubmitSurveyAsync(Id, submission);
+                await Application.Current.MainPage.DisplayAlert("Успіх", "Оцінки успішно відправлені!", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Помилка", $"Не вдалося відправити оцінки: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsSubmitting = false;
             }
         }
     }

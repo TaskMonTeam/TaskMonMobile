@@ -63,17 +63,4 @@ namespace TaskMonMobile.ViewModels
             await Shell.Current.GoToAsync($"SurveyPage?surveyId={surveyId}");
         }
     }
-
-    public partial class SurveyItemViewModel : ObservableObject
-    {
-        [ObservableProperty]
-        private Guid _id;
-
-        [ObservableProperty]
-        private string _title;
-
-        public SurveyGroupPageViewModel ParentViewModel { get; set; }
-
-        public ICommand SelectSurveyCommand => new Command(() => ParentViewModel.NavigateToSurveyCommand.Execute(Id));
-    }
 }

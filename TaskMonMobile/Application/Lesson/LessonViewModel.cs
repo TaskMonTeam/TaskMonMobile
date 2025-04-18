@@ -18,7 +18,7 @@ namespace TaskMonMobile.ViewModels
         private LessonType _type;
 
         [ObservableProperty]
-        private int _rating;
+        private float _rating;
 
         [ObservableProperty]
         private string _lessonRatingText;
@@ -32,7 +32,7 @@ namespace TaskMonMobile.ViewModels
         public string LessonTitleWithType => $"Завдання: {Title} (Тип: {Type})";
         public string LessonRatingDisplay => $"Оцінка: {Rating}";
 
-        partial void OnRatingChanged(int value)
+        partial void OnRatingChanged(float value)
         {
             LessonRatingText = value > 0 ? value.ToString() : string.Empty;
             OnPropertyChanged(nameof(LessonRatingDisplay));
@@ -41,7 +41,7 @@ namespace TaskMonMobile.ViewModels
 
         partial void OnLessonRatingTextChanged(string value)
         {
-            int rating = 0;
+            float rating = 0;
     
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -50,7 +50,7 @@ namespace TaskMonMobile.ViewModels
                     Rating = 0;
                 }
             }
-            else if (int.TryParse(value, out rating))
+            else if (float.TryParse(value, out rating))
             {
                 if (Rating != rating)
                 {

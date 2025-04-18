@@ -13,7 +13,7 @@ namespace TaskMonMobile.ViewModels
         private string _title;
 
         [ObservableProperty]
-        private int _rating;
+        private float _rating;
 
         [ObservableProperty]
         private ObservableCollection<ThemeViewModel> _themes;
@@ -21,7 +21,7 @@ namespace TaskMonMobile.ViewModels
         public string ModuleTitle => $"Модуль: {Title}";
         public string ModuleRatingDisplay => $"Оцінка: {Rating}";
 
-        partial void OnRatingChanged(int value)
+        partial void OnRatingChanged(float value)
         {
             OnPropertyChanged(nameof(ModuleRatingDisplay));
         }

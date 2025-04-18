@@ -106,6 +106,19 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
+            <Button
+                BackgroundColor="#007AFF"
+                Command="{Binding SubmitSurveyCommand}"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                FontSize="18"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Margin="0,20,0,0"
+                Text="Submit"
+                TextColor="White"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="200" />
         </VerticalStackLayout>
     </ScrollView>
 

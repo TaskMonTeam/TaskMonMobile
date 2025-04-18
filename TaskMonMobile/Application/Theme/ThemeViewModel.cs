@@ -13,7 +13,7 @@ namespace TaskMonMobile.ViewModels
         private string _title;
 
         [ObservableProperty]
-        private int _rating;
+        private float _rating;
 
         [ObservableProperty]
         private ObservableCollection<LessonViewModel> _lessons;
@@ -26,7 +26,7 @@ namespace TaskMonMobile.ViewModels
             Rating = Lessons.Sum(l => l.Rating);
         }
 
-        partial void OnRatingChanged(int value)
+        partial void OnRatingChanged(float value)
         {
             OnPropertyChanged(nameof(ThemeRatingDisplay));
         }
