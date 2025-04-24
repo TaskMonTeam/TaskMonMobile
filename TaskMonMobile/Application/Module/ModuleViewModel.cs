@@ -13,17 +13,17 @@ namespace TaskMonMobile.ViewModels
         private string _title;
 
         [ObservableProperty]
-        private float _rating;
+        private float _timeSpend;
 
         [ObservableProperty]
         private ObservableCollection<ThemeViewModel> _themes;
 
         public string ModuleTitle => $"Модуль: {Title}";
-        public string ModuleRatingDisplay => $"Оцінка: {Rating}";
+        public string ModuleTimeSpendDisplay => $"({TimeSpend} годин)";
 
-        partial void OnRatingChanged(float value)
+        partial void OnTimeSpendChanged(float value)
         {
-            OnPropertyChanged(nameof(ModuleRatingDisplay));
+            OnPropertyChanged(nameof(ModuleTimeSpendDisplay));
         }
         
         public static ModuleViewModel FromModel(Module module)
@@ -32,7 +32,7 @@ namespace TaskMonMobile.ViewModels
             {
                 Id = module.Id,
                 Title = module.Title,
-                Rating = 0,
+                TimeSpend = 0,
                 Themes = new ObservableCollection<ThemeViewModel>()
             };
         

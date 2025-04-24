@@ -18,10 +18,10 @@ namespace TaskMonMobile.ViewModels
         private LessonType _type;
 
         [ObservableProperty]
-        private float _rating;
+        private float _timeSpend;
 
         [ObservableProperty]
-        private string _lessonRatingText;
+        private string _lessonTimeSpendText;
 
         public LessonViewModel(ModuleViewModel parentModule, ThemeViewModel parentTheme)
         {
@@ -29,50 +29,50 @@ namespace TaskMonMobile.ViewModels
             _parentTheme = parentTheme;
         }
 
-        public string LessonTitleWithType => $"Завдання: {Title} (Тип: {Type})";
-        public string LessonRatingDisplay => $"Оцінка: {Rating}";
+        public string LessonTypes => $"{Type}";
+        public string LessonTimeSpendDisplay => $"Витрачений час: {TimeSpend}";
 
-        partial void OnRatingChanged(float value)
+        partial void OnTimeSpendChanged(float value)
         {
-            LessonRatingText = value > 0 ? value.ToString() : string.Empty;
-            OnPropertyChanged(nameof(LessonRatingDisplay));
-            UpdateParentRatings();
+            LessonTimeSpendText = value > 0 ? value.ToString() : string.Empty;
+            OnPropertyChanged(nameof(LessonTimeSpendDisplay));
+            UpdateParentTimeSpend();
         }
 
-        partial void OnLessonRatingTextChanged(string value)
+        partial void OnLessonTimeSpendTextChanged(string value)
         {
-            float rating = 0;
+            float timeSpend = 0;
     
             if (string.IsNullOrWhiteSpace(value))
             {
-                if (Rating != 0)
+                if (TimeSpend != 0)
                 {
-                    Rating = 0;
+                    TimeSpend = 0;
                 }
             }
-            else if (float.TryParse(value, out rating))
+            else if (float.TryParse(value, out timeSpend))
             {
-                if (Rating != rating)
+                if (TimeSpend != timeSpend)
                 {
-                    Rating = rating;
+                    TimeSpend = timeSpend;
                 }
             }
         }
 
         partial void OnTitleChanged(string value)
         {
-            OnPropertyChanged(nameof(LessonTitleWithType));
+            OnPropertyChanged(nameof(LessonTypes));
         }
 
         partial void OnTypeChanged(LessonType value)
         {
-            OnPropertyChanged(nameof(LessonTitleWithType));
+            OnPropertyChanged(nameof(LessonTypes));
         }
 
-        private void UpdateParentRatings()
+        private void UpdateParentTimeSpend()
         {
-            _parentTheme.RecalculateRating();
-            _parentModule.Rating = _parentModule.Themes.Sum(t => t.Rating);
+            _parentTheme.RecalculateTimeSpend();
+            _parentModule.TimeSpend = _parentModule.Themes.Sum(t => t.TimeSpend);
         }
         
         public static LessonViewModel FromModel(Lesson lesson, ModuleViewModel parentModule, ThemeViewModel parentTheme)
@@ -82,7 +82,7 @@ namespace TaskMonMobile.ViewModels
                 Id = lesson.Id,
                 Title = lesson.Title,
                 Type = lesson.Type,
-                Rating = 0
+                TimeSpend = 0
             };
         }
     }
