@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Login"
+    x:Class="TaskMonMobile.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="Center">
+
+        <Image
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            Source="dotnet_bot.png"
+            WidthRequest="100" />
+
+        <Label
+            FontSize="22"
+            HorizontalOptions="Center"
+            Text="Вітаємо в TaskMon"
+            TextColor="Black"
+            VerticalOptions="Center" />
+
+        <Label
+            FontSize="16"
+            HorizontalOptions="Center"
+            Text="Залогіньтеся, щоб продовжити"
+            TextColor="Gray"
+            VerticalOptions="Center" />
+
+        <Button
+            BackgroundColor="#6200EE"
+            Clicked="OnLoginClicked"
+            HorizontalOptions="Center"
+            Text="Залогінитись з Auth0"
+            TextColor="White"
+            WidthRequest="200" />
+
+    </VerticalStackLayout>
+</ContentPage>

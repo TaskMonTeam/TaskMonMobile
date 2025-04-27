@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    FlyoutBehavior="Flyout"
+    BackgroundColor="#FEF7FF"
+    FlyoutBehavior="Disabled"
     Title="TaskMonMobile"
     x:Class="TaskMonMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:local="clr-namespace:TaskMonMobile"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!--<ShellContent
+    <ShellContent
+        ContentTemplate="{DataTemplate local:LoadingPage}"
+        Route="LoadingPage"
+        Title="Loading" />
+
+    <ShellContent
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="LoginPage"
-        Title="Login" />-->
-    <!--<ShellContent
-        ContentTemplate="{DataTemplate local:SurveyPage}"
-        Route="SurveyPage"
-        Title="Survey" />-->
+        Title="Login" />
+
     <ShellContent
         ContentTemplate="{DataTemplate local:SurveyGroupPage}"
         Route="SurveyGroupPage"

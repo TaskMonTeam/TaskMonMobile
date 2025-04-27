@@ -35,9 +35,4 @@ public partial class SurveyPage : ContentPage
     {
         await _viewModel.LoadSurveyDataAsync();
     }
-    
-    /*private async void OnLogoutButtonClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("//LoginPage");
-    }*/
 }
