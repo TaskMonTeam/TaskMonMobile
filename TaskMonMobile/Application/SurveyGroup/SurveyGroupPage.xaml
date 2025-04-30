@@ -16,31 +16,49 @@
             Priority="0" />
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20">
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Surveys}" Spacing="15">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:SurveyItemViewModel">
-                        <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
-                            <Border
-                                BackgroundColor="#FEF7FF"
-                                Padding="15"
-                                Stroke="Transparent"
-                                StrokeShape="RoundRectangle 12">
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectSurveyCommand}" />
-                                </Border.GestureRecognizers>
-                                <VerticalStackLayout Spacing="5">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="16"
-                                        Text="{Binding Title}" />
-                                </VerticalStackLayout>
-                            </Border>
-                        </ContentView>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
+    <Grid>
+        <ScrollView IsVisible="{Binding HasNoSurveys, Converter={StaticResource InvertedBoolConverter}}">
+            <VerticalStackLayout Padding="20">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Surveys}" Spacing="15">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:SurveyItemViewModel">
+                            <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
+                                <Border
+                                    BackgroundColor="#FEF7FF"
+                                    Padding="15"
+                                    Stroke="Transparent"
+                                    StrokeShape="RoundRectangle 12">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectSurveyCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            Text="{Binding Title}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </ContentView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
             </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}" />
+
+            <Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                IsVisible="{Binding HasNoSurveys}"
+                Margin="0,20,0,0"
+                Text="{Binding NoSurveysMessage}"
+                TextColor="Gray" />
         </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
 </ContentPage>

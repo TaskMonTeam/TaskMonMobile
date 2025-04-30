@@ -40,6 +40,7 @@ public partial class LoadingPage : ContentPage
                                 await Shell.Current.GoToAsync($"//SurveyPage?surveyId={pendingLinkId}");
                                 break;
                             case DeepLinkType.Group:
+                                Preferences.Set("LastOpenedGroupId", pendingLinkId);
                                 await Shell.Current.GoToAsync($"//SurveyGroupPage?groupId={pendingLinkId}");
                                 break;
                             default:
@@ -49,7 +50,16 @@ public partial class LoadingPage : ContentPage
                         return;
                     }
                 }
-                await Shell.Current.GoToAsync("//SurveyGroupPage");
+                
+                string lastGroupId = Preferences.Get("LastOpenedGroupId", string.Empty);
+                if (!string.IsNullOrEmpty(lastGroupId) && Guid.TryParse(lastGroupId, out _))
+                {
+                    await Shell.Current.GoToAsync($"//SurveyGroupPage?groupId={lastGroupId}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("//SurveyGroupPage");
+                }
             }
             else
             {

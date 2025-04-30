@@ -34,6 +34,7 @@ public partial class App : Application
             {
                 Preferences.Set("PendingDeepLinkType", (int)type);
                 Preferences.Set("PendingDeepLinkId", id);
+                Preferences.Set("HasPendingDeepLink", true);
                 
                 await Shell.Current.GoToAsync("//LoginPage");
                 return;
@@ -45,13 +46,14 @@ public partial class App : Application
                     await Shell.Current.GoToAsync($"//SurveyPage?surveyId={id}");
                     break;
                 case DeepLinkType.Group:
+                    Preferences.Set("LastOpenedGroupId", id);
                     await Shell.Current.GoToAsync($"//SurveyGroupPage?groupId={id}");
                     break;
             }
         }
         catch (Exception ex)
         {
-            await Shell.Current.DisplayAlert("Помилка", $"Помилка при обробці посилання: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlert("Помилка", "Не вірне посилання, спробуйте знову", "OK");
             await Shell.Current.GoToAsync("//SurveyGroupPage");
         }
     }

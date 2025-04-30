@@ -67,6 +67,10 @@ public class MainActivity : MauiAppCompatActivity
                         
                         WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Survey, surveyId));
                     }
+                    else
+                    {
+                        WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Survey, string.Empty));
+                    }
                 }
                 else if (path.StartsWith("/groups/invite/"))
                 {
@@ -78,6 +82,10 @@ public class MainActivity : MauiAppCompatActivity
                         Preferences.Set("HasPendingDeepLink", true);
                         
                         WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Group, groupId));
+                    }
+                    else
+                    {
+                        WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Group, string.Empty));
                     }
                 }
             }

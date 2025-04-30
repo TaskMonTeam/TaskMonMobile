@@ -17,10 +17,19 @@ namespace TaskMonMobile.ViewModels
         private Guid _groupId;
 
         [ObservableProperty]
-        private string _title;
+        private string _title = "Опитування";
 
         [ObservableProperty]
         private ObservableCollection<SurveyItemViewModel> _surveys;
+        
+        [ObservableProperty]
+        private bool _hasNoSurveys;
+        
+        [ObservableProperty]
+        private string _noSurveysMessage = "У вас поки немає опитувань";
+
+        [ObservableProperty]
+        private bool _isLoading;
 
         public ICommand NavigateToSurveyCommand { get; }
 
@@ -29,27 +38,53 @@ namespace TaskMonMobile.ViewModels
             _surveyClient = surveyClient;
             Surveys = new ObservableCollection<SurveyItemViewModel>();
             NavigateToSurveyCommand = new Command<Guid>(async (surveyId) => await NavigateToSurvey(surveyId));
+            HasNoSurveys = true;
         }
 
         public async Task LoadSurveyGroupDataAsync()
         {
             try
             {
+                IsLoading = true;
                 var groupIdToUse = GroupId != Guid.Empty ? GroupId : Guid.Empty;
+                
+                if (groupIdToUse == Guid.Empty)
+                {
+                    HasNoSurveys = true;
+                    Title = "Опитування";
+                    IsLoading = false;
+                    return;
+                }
                 
                 var surveyGroup = await _surveyClient.GetSurveyGroupAsync(groupIdToUse);
                 LoadFromModel(surveyGroup);
+                
+                HasNoSurveys = Surveys.Count == 0;
+                
+                if (HasNoSurveys || string.IsNullOrEmpty(Title))
+                {
+                    Title = "Опитування";
+                }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Помилка", $"Виникла помилка при завантаженні групи опитувань: {ex.Message}", "OK");
+                HasNoSurveys = true;
+                NoSurveysMessage = "Не вірне посилання, спробуйте знову";
+                Title = "Опитування";
+                throw;
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
         private void LoadFromModel(SurveyGroup surveyGroup)
         {
             Id = surveyGroup.Id;
-            Title = surveyGroup.Title;
+            
+            Title = !string.IsNullOrEmpty(surveyGroup.Title) ? surveyGroup.Title : "Опитування";
+            
             Surveys.Clear();
             
             foreach (var survey in surveyGroup.Surveys)

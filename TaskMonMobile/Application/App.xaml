@@ -2,6 +2,7 @@
 <Application
     x:Class="TaskMonMobile.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:converters="clr-namespace:TaskMonMobile.Converters"
     xmlns:local="clr-namespace:TaskMonMobile"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
@@ -13,6 +14,7 @@
 
                 <material:StyleResource BasedOn="{x:Reference appStyles}" ColorsOverride="{x:Reference appColors}" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

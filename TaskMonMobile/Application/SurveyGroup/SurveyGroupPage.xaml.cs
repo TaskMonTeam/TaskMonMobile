@@ -36,7 +36,21 @@ public partial class SurveyGroupPage : ContentPage
     
     private async void OnPageLoaded(object sender, EventArgs e)
     {
-        await _viewModel.LoadSurveyGroupDataAsync();
+        try
+        {
+            await _viewModel.LoadSurveyGroupDataAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Помилка", "Не вірне посилання, спробуйте знову", "OK");
+            
+            if (!string.IsNullOrEmpty(GroupId))
+            {
+                Preferences.Remove("LastOpenedGroupId");
+                GroupId = string.Empty;
+                _viewModel.GroupId = Guid.Empty;
+            }
+        }
     }
 
     private async void OnLogoutClicked(object sender, EventArgs e)
@@ -45,6 +59,7 @@ public partial class SurveyGroupPage : ContentPage
         
         if (logoutResult)
         {
+            Preferences.Remove("LastOpenedGroupId");
             await Shell.Current.GoToAsync("//LoginPage");
         }
         else
