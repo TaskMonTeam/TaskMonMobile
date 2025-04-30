@@ -23,4 +23,9 @@
         Route="SurveyGroupPage"
         Title="SurveyGroup" />
 
+    <ShellContent
+        ContentTemplate="{DataTemplate local:SurveyPage}"
+        Route="SurveyPage"
+        Title="Survey" />
+
 </Shell>

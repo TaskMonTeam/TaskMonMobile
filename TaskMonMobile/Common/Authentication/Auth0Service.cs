@@ -21,7 +21,10 @@ namespace TaskMonMobile.Services
         {
             try
             {
-                var loginResult = await _auth0Client.LoginAsync();
+                var loginResult = await _auth0Client.LoginAsync(new
+                {
+                    audience = "https://taskmon.com"
+                });
 
                 if (loginResult.IsError)
                 {

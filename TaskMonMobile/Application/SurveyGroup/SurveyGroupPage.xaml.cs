@@ -4,10 +4,25 @@ using TaskMonMobile.ViewModels;
 
 namespace TaskMonMobile;
 
+[QueryProperty(nameof(GroupId), "groupId")]
 public partial class SurveyGroupPage : ContentPage
 {
     private readonly SurveyGroupPageViewModel _viewModel;
-        private readonly Auth0Service _auth0Service;
+    private readonly Auth0Service _auth0Service;
+    private string _groupId;
+
+    public string GroupId
+    {
+        get => _groupId;
+        set
+        {
+            _groupId = value;
+            if (Guid.TryParse(value, out Guid groupId))
+            {
+                _viewModel.GroupId = groupId;
+            }
+        }
+    }
 
     public SurveyGroupPage(ISurveyClient surveyClient, Auth0Service auth0Service)
     {

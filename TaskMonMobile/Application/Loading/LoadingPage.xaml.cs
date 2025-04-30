@@ -15,7 +15,6 @@ public partial class LoadingPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await Task.Delay(1000);
         try
         {
             bool isAuthenticated = await _auth0Service.IsAuthenticatedAsync();

@@ -12,6 +12,9 @@ namespace TaskMonMobile.ViewModels
     
         [ObservableProperty]
         private Guid _id;
+        
+        [ObservableProperty]
+        private Guid _groupId;
 
         [ObservableProperty]
         private string _title;
@@ -32,7 +35,9 @@ namespace TaskMonMobile.ViewModels
         {
             try
             {
-                var surveyGroup = await _surveyClient.GetSurveyGroupAsync(Guid.Empty);
+                var groupIdToUse = GroupId != Guid.Empty ? GroupId : Guid.Empty;
+                
+                var surveyGroup = await _surveyClient.GetSurveyGroupAsync(groupIdToUse);
                 LoadFromModel(surveyGroup);
             }
             catch (Exception ex)

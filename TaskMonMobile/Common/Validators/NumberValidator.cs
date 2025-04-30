@@ -23,20 +23,20 @@ public class NumberValidator : IValidation
         {
             if (number < MinValue)
             {
-                Message = $"Значення має бути не менше {MinValue}";
+                Message = $"Більше за 0 {MinValue}";
                 return false;
             }
 
             if (number > MaxValue)
             {
-                Message = $"Значення має бути не більше {MaxValue}";
+                Message = $"Менше за 100 {MaxValue}";
                 return false;
             }
             
             return true;
         }
         
-        Message = "Введіть коректне числове значення";
+        Message = "Введіть значення";
         return false;
     }
 }

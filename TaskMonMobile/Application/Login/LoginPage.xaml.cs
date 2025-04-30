@@ -20,7 +20,31 @@ public partial class LoginPage : ContentPage
             
             if (loginResult)
             {
-                await Shell.Current.GoToAsync("//SurveyGroupPage");
+                int pendingLinkType = Preferences.Get("PendingDeepLinkType", -1);
+                string pendingLinkId = Preferences.Get("PendingDeepLinkId", string.Empty);
+                
+                Preferences.Remove("PendingDeepLinkType");
+                Preferences.Remove("PendingDeepLinkId");
+                
+                if (pendingLinkType != -1 && !string.IsNullOrEmpty(pendingLinkId))
+                {
+                    switch ((DeepLinkType)pendingLinkType)
+                    {
+                        case DeepLinkType.Survey:
+                            await Shell.Current.GoToAsync($"//SurveyPage?surveyId={pendingLinkId}");
+                            break;
+                        case DeepLinkType.Group:
+                            await Shell.Current.GoToAsync($"//SurveyGroupPage?groupId={pendingLinkId}");
+                            break;
+                        default:
+                            await Shell.Current.GoToAsync("//SurveyGroupPage");
+                            break;
+                    }
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("//SurveyGroupPage");
+                }
             }
             else
             {

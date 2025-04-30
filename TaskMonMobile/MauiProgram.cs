@@ -48,7 +48,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<LoginPage>();
         builder.Services.AddSingleton<SurveyPage>();
         builder.Services.AddSingleton<SurveyGroupPage>();
-        builder.Services.AddSingleton<AppShell>();
 
 #if DEBUG
         builder.Logging.AddDebug();
