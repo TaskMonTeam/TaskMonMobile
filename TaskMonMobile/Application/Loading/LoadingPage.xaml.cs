@@ -19,8 +19,36 @@ public partial class LoadingPage : ContentPage
         {
             bool isAuthenticated = await _auth0Service.IsAuthenticatedAsync();
             
+            bool hasPendingDeepLink = Preferences.Get("HasPendingDeepLink", false);
+            
             if (isAuthenticated)
             {
+                if (hasPendingDeepLink)
+                {
+                    int pendingLinkType = Preferences.Get("PendingDeepLinkType", -1);
+                    string pendingLinkId = Preferences.Get("PendingDeepLinkId", string.Empty);
+                    
+                    Preferences.Remove("HasPendingDeepLink");
+                    Preferences.Remove("PendingDeepLinkType");
+                    Preferences.Remove("PendingDeepLinkId");
+                    
+                    if (pendingLinkType != -1 && !string.IsNullOrEmpty(pendingLinkId))
+                    {
+                        switch ((DeepLinkType)pendingLinkType)
+                        {
+                            case DeepLinkType.Survey:
+                                await Shell.Current.GoToAsync($"//SurveyPage?surveyId={pendingLinkId}");
+                                break;
+                            case DeepLinkType.Group:
+                                await Shell.Current.GoToAsync($"//SurveyGroupPage?groupId={pendingLinkId}");
+                                break;
+                            default:
+                                await Shell.Current.GoToAsync("//SurveyGroupPage");
+                                break;
+                        }
+                        return;
+                    }
+                }
                 await Shell.Current.GoToAsync("//SurveyGroupPage");
             }
             else

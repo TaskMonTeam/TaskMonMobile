@@ -61,6 +61,10 @@ public class MainActivity : MauiAppCompatActivity
                     string surveyId = path.Replace("/sureveys/invite/", "");
                     if (Guid.TryParse(surveyId, out _))
                     {
+                        Preferences.Set("PendingDeepLinkType", (int)DeepLinkType.Survey);
+                        Preferences.Set("PendingDeepLinkId", surveyId);
+                        Preferences.Set("HasPendingDeepLink", true);
+                        
                         WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Survey, surveyId));
                     }
                 }
@@ -69,6 +73,10 @@ public class MainActivity : MauiAppCompatActivity
                     string groupId = path.Replace("/groups/invite/", "");
                     if (Guid.TryParse(groupId, out _))
                     {
+                        Preferences.Set("PendingDeepLinkType", (int)DeepLinkType.Group);
+                        Preferences.Set("PendingDeepLinkId", groupId);
+                        Preferences.Set("HasPendingDeepLink", true);
+                        
                         WeakReferenceMessenger.Default.Send(new DeepLinkMessage(DeepLinkType.Group, groupId));
                     }
                 }
