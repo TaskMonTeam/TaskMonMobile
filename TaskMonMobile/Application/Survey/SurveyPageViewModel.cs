@@ -21,11 +21,28 @@ namespace TaskMonMobile.ViewModels
         
         [ObservableProperty]
         private bool _isSubmitting;
+        
+        [ObservableProperty]
+        private bool _isRefreshing;
 
         public SurveyPageViewModel(ISurveyClient surveyClient)
         {
             _surveyClient = surveyClient;
             Modules = new ObservableCollection<ModuleViewModel>();
+        }
+        
+        [RelayCommand]
+        private async Task RefreshDataAsync()
+        {
+            IsRefreshing = true;
+            try
+            {
+                await LoadSurveyDataAsync();
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
         }
         
         public async Task LoadSurveyDataAsync()

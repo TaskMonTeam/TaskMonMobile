@@ -15,7 +15,7 @@ namespace TaskMonMobile;
     Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable }, 
     DataScheme = "http", 
     DataHost = "taskmon.com", 
-    DataPathPrefix = "/sureveys/invite" )]
+    DataPathPrefix = "/surveys/invite" )]
 
 [IntentFilter(new[] { Intent.ActionView }, 
     Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable }, 
@@ -27,7 +27,7 @@ namespace TaskMonMobile;
     Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable }, 
     DataScheme = "https", 
     DataHost = "taskmon.com", 
-    DataPathPrefix = "/sureveys/invite" )]
+    DataPathPrefix = "/surveys/invite" )]
 
 [IntentFilter(new[] { Intent.ActionView }, 
     Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable }, 
@@ -56,9 +56,9 @@ public class MainActivity : MauiAppCompatActivity
             string path = uri.Path;
             if (!string.IsNullOrEmpty(path))
             {
-                if (path.StartsWith("/sureveys/invite/"))
+                if (path.StartsWith("/surveys/invite/"))
                 {
-                    string surveyId = path.Replace("/sureveys/invite/", "");
+                    string surveyId = path.Replace("/surveys/invite/", "");
                     if (Guid.TryParse(surveyId, out _))
                     {
                         Preferences.Set("PendingDeepLinkType", (int)DeepLinkType.Survey);

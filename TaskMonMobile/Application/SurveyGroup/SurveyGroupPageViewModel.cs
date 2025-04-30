@@ -2,6 +2,7 @@ using SurveyService.Client;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using SurveyService.Models;
 
 namespace TaskMonMobile.ViewModels
@@ -30,6 +31,9 @@ namespace TaskMonMobile.ViewModels
 
         [ObservableProperty]
         private bool _isLoading;
+        
+        [ObservableProperty]
+        private bool _isRefreshing;
 
         public ICommand NavigateToSurveyCommand { get; }
 
@@ -39,6 +43,20 @@ namespace TaskMonMobile.ViewModels
             Surveys = new ObservableCollection<SurveyItemViewModel>();
             NavigateToSurveyCommand = new Command<Guid>(async (surveyId) => await NavigateToSurvey(surveyId));
             HasNoSurveys = true;
+        }
+        
+        [RelayCommand]
+        private async Task RefreshDataAsync()
+        {
+            IsRefreshing = true;
+            try
+            {
+                await LoadSurveyGroupDataAsync();
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
         }
 
         public async Task LoadSurveyGroupDataAsync()
