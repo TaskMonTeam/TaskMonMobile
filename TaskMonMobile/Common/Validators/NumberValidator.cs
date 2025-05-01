@@ -6,37 +6,36 @@ public class NumberValidator : IValidation
 {
     public string Message { get; set; }
     
-    public int MinValue { get; set; } = int.MinValue;
+    public int MinValue { get; set; }
     
-    public int MaxValue { get; set; } = int.MaxValue;
-
-    public bool IsRequired { get; set; }
+    public int MaxValue { get; set; }
 
     public bool Validate(object value)
     {
-        if (!IsRequired && (value == null || string.IsNullOrWhiteSpace(value.ToString())))
+        if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
         {
-            return true;
+            Message = "Введіть значення";
+            return false;
         }
         
-        if (value != null && int.TryParse(value.ToString(), out int number))
+        if (int.TryParse(value.ToString(), out int number))
         {
             if (number < MinValue)
             {
-                Message = $"Більше за 0 {MinValue}";
+                Message = $"Введіть більше за {MinValue}";
                 return false;
             }
 
             if (number > MaxValue)
             {
-                Message = $"Менше за 100 {MaxValue}";
+                Message = $"Введіть менше за {MaxValue}";
                 return false;
             }
             
             return true;
         }
         
-        Message = "Введіть значення";
+        Message = "Введіть числове значення";
         return false;
     }
 }

@@ -37,9 +37,9 @@
                                         </Border.GestureRecognizers>
                                         <VerticalStackLayout Spacing="5">
                                             <Label
-                                                FontAttributes="Bold"
                                                 FontSize="16"
-                                                Text="{Binding Title}" />
+                                                Text="{Binding Title}"
+                                                TextColor="#49454F" />
                                         </VerticalStackLayout>
                                     </Border>
                                 </ContentView>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Силабуси курсу"
+    x:Class="TaskMonAdmin.SyllabusGroupPage"
+    x:DataType="viewModels:SyllabusGroupPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid>
+        <RefreshView
+            Command="{Binding RefreshDataCommand}"
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding HasNoSyllabuses, Converter={StaticResource InvertedBoolConverter}}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Syllabuses}" Spacing="15">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:SyllabusGroupItemViewModel">
+                                <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
+                                    <Border
+                                        BackgroundColor="#FEF7FF"
+                                        Padding="15"
+                                        Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 12">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectSyllabusCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                <Label
+                                                    FontSize="16"
+                                                    Text="{Binding TitleWithStatus}"
+                                                    TextColor="#49454F" />
+                                            </VerticalStackLayout>
+                                            <Label
+                                                FontSize="14"
+                                                Grid.Column="1"
+                                                Text="{Binding PublishTime, StringFormat='{0:dd.MM.yyyy}'}"
+                                                TextColor="#625B71"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </Border>
+                                </ContentView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            IsVisible="{Binding HasNoSyllabuses}"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                Text="Немає доступних силабусів"
+                TextColor="#49454F" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
