@@ -26,6 +26,7 @@ public static class MauiProgram
         
         builder.Services.AddSingleton<SyllabusPage>();
         builder.Services.AddSingleton<SyllabusGroupPage>();
+        builder.Services.AddSingleton<CreateSyllabusPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

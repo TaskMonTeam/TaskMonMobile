@@ -84,6 +84,9 @@
       <MauiXaml Update="Application\Syllabus\SyllabusPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Application\CreateSyllabus\CreateSyllabusPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -101,6 +104,10 @@
       </Compile>
       <Compile Update="Application\Syllabus\SyllabusPage.xaml.cs">
         <DependentUpon>SyllabusPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\CreateSyllabus\CreateSyllabusPage.xaml.cs">
+        <DependentUpon>CreateSyllabusPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

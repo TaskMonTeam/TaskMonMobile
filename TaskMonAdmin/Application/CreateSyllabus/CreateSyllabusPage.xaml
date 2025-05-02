@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Оновлення силабуса"
+    x:Class="TaskMonAdmin.CreateSyllabusPage"
+    x:DataType="viewModels:CreateSyllabusPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Modules}" Spacing="20">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:ModuleViewModel">
+                        <Border
+                            BackgroundColor="#FEF7FF"
+                            Padding="10"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="15">
+                                <material:TextField Text="{Binding Title}" Title="Модуль" />
+
+                                <Grid ColumnDefinitions="5, *">
+                                    <BoxView
+                                        BackgroundColor="#625B71"
+                                        Grid.Column="0"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="2" />
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Padding="10,0,0,0"
+                                        Spacing="15">
+
+                                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Themes}" Spacing="15">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="viewModels:ThemeViewModel">
+                                                    <VerticalStackLayout Spacing="15">
+                                                        <material:TextField Text="{Binding Title}" Title="Тема" />
+
+                                                        <Grid ColumnDefinitions="5, *">
+                                                            <BoxView
+                                                                BackgroundColor="#625B71"
+                                                                Grid.Column="0"
+                                                                HorizontalOptions="Start"
+                                                                WidthRequest="2" />
+                                                            <VerticalStackLayout
+                                                                Grid.Column="1"
+                                                                Padding="10,0,0,0"
+                                                                Spacing="15">
+
+                                                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}" Spacing="10">
+                                                                    <BindableLayout.ItemTemplate>
+                                                                        <DataTemplate x:DataType="viewModels:LessonViewModel">
+                                                                            <VerticalStackLayout Spacing="2">
+                                                                                <material:EditorField Text="{Binding Title}" Title="Завдання">
+                                                                                    <material:EditorField.Attachments>
+                                                                                        <Image
+                                                                                            HeightRequest="24"
+                                                                                            Margin="10,0"
+                                                                                            Source="//close_circle_outline.png"
+                                                                                            VerticalOptions="Center"
+                                                                                            WidthRequest="24">
+                                                                                            <Image.GestureRecognizers>
+                                                                                                <TapGestureRecognizer Command="{Binding RemoveLessonCommand}" />
+                                                                                            </Image.GestureRecognizers>
+                                                                                        </Image>
+                                                                                    </material:EditorField.Attachments>
+                                                                                </material:EditorField>
+                                                                                <Grid ColumnDefinitions="*, 80" ColumnSpacing="5">
+                                                                                    <material:PickerField
+                                                                                        AllowClear="False"
+                                                                                        Grid.Column="0"
+                                                                                        ItemsSource="{Binding LessonTypes}"
+                                                                                        SelectedItem="{Binding Type}"
+                                                                                        Title="Тип" />
+                                                                                    <material:TextField
+                                                                                        Grid.Column="1"
+                                                                                        Keyboard="Numeric"
+                                                                                        Text="{Binding StudyHours}" />
+                                                                                </Grid>
+                                                                            </VerticalStackLayout>
+                                                                        </DataTemplate>
+                                                                    </BindableLayout.ItemTemplate>
+                                                                </VerticalStackLayout>
+
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    HorizontalOptions="Start"
+                                                                    Text="+ Додати завдання"
+                                                                    TextColor="#6750A4">
+                                                                    <Label.GestureRecognizers>
+                                                                        <TapGestureRecognizer Command="{Binding AddLessonCommand}" />
+                                                                    </Label.GestureRecognizers>
+                                                                </Label>
+                                                            </VerticalStackLayout>
+                                                        </Grid>
+                                                    </VerticalStackLayout>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </VerticalStackLayout>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start"
+                                            Text="+ Додати тему"
+                                            TextColor="#6750A4">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding AddThemeCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <Label
+                FontAttributes="Bold"
+                HorizontalOptions="Start"
+                Margin="0,10,0,0"
+                Text="+ Додати модуль"
+                TextColor="#6750A4">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddModuleCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Button
+                BackgroundColor="#6750A4"
+                Command="{Binding UpdateSyllabusCommand}"
+                Margin="20"
+                Text="Оновити силабус"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

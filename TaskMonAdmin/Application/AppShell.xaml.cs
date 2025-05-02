@@ -8,5 +8,6 @@ public partial class AppShell : Shell
         
         Routing.RegisterRoute("SyllabusPage", typeof(SyllabusPage));
         Routing.RegisterRoute("SyllabusGroupPage", typeof(SyllabusGroupPage));
+        Routing.RegisterRoute("CreateSyllabusPage", typeof(CreateSyllabusPage));
     }
 }

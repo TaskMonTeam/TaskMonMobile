@@ -14,6 +14,11 @@
         Title="SyllabusGroup" />
 
     <ShellContent
+        ContentTemplate="{DataTemplate local:CreateSyllabusPage}"
+        Route="CreateSyllabusPage"
+        Title="CreateSyllabus" />
+
+    <ShellContent
         ContentTemplate="{DataTemplate local:SyllabusPage}"
         Route="SyllabusPage"
         Title="Syllabus" />

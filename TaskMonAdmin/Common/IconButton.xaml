@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="TaskMonAdmin.Common.IconButton"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        BackgroundColor="{Binding ButtonColor, Source={x:Reference Root}}"
+        Padding="10"
+        StrokeShape="RoundRectangle 16"
+        StrokeThickness="0.1"
+        StyleClass="Elevation1">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Command, Source={x:Reference Root}}" />
+        </Border.GestureRecognizers>
+        <ImageButton
+            Command="{Binding Command, Source={x:Reference Root}}"
+            HeightRequest="24"
+            Source="{Binding IconSource, Source={x:Reference Root}}"
+            WidthRequest="24" />
+    </Border>
+
+</ContentView>

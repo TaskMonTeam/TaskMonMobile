@@ -38,6 +38,12 @@ namespace TaskMonAdmin.ViewModels
             }
         }
         
+        [RelayCommand]
+        private async Task CreateSyllabus()
+        {
+            await Shell.Current.GoToAsync("CreateSyllabusPage");
+        }
+        
         public async Task LoadSyllabusesAsync()
         {
             try
