@@ -49,6 +49,12 @@
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </VerticalStackLayout>
+                        <Button
+                            BackgroundColor="#6750A4"
+                            Command="{Binding ReturnToCoursesCommand}"
+                            Margin="0,20,0,0"
+                            Text="Повернутися назад"
+                            TextColor="White" />
                     </VerticalStackLayout>
                 </ScrollView>
 
@@ -77,6 +83,12 @@
                 Command="{Binding CreateSyllabusCommand}"
                 Margin="20"
                 Text="Додати силабус"
+                TextColor="White" />
+            <Button
+                BackgroundColor="#6750A4"
+                Command="{Binding ReturnToCoursesCommand}"
+                Margin="20"
+                Text="Повернутися назад"
                 TextColor="White" />
         </VerticalStackLayout>
     </Grid>

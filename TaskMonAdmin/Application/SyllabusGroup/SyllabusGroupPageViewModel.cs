@@ -17,6 +17,9 @@ namespace TaskMonAdmin.ViewModels
         
         [ObservableProperty]
         private bool _hasNoSyllabuses;
+        
+        [ObservableProperty]
+        private Guid _courseId;
 
         public SyllabusGroupPageViewModel(ITaskMonAdminClient adminClient)
         {
@@ -41,19 +44,31 @@ namespace TaskMonAdmin.ViewModels
         [RelayCommand]
         private async Task CreateSyllabus()
         {
-            await Shell.Current.GoToAsync("CreateSyllabusPage");
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "courseId", CourseId.ToString() }
+            };
+            await Shell.Current.GoToAsync("CreateSyllabusPage", navigationParameter);
+        }
+        
+        [RelayCommand]
+        private async Task ReturnToCourses()
+        {
+            await Shell.Current.GoToAsync("//CoursesPage");
         }
         
         public async Task LoadSyllabusesAsync()
         {
             try
             {
-                var syllabuses = await _adminClient.GetCourseSyllabusesAsync(Guid.Empty);
+                var syllabuses = await _adminClient.GetCourseSyllabusesAsync(CourseId);
                 Syllabuses.Clear();
                 
                 foreach (var syllabus in syllabuses)
                 {
-                    Syllabuses.Add(SyllabusGroupItemViewModel.FromModel(syllabus));
+                    var viewModel = SyllabusGroupItemViewModel.FromModel(syllabus);
+                    viewModel.CourseId = CourseId;
+                    Syllabuses.Add(viewModel);
                 }
                 
                 HasNoSyllabuses = Syllabuses.Count == 0;

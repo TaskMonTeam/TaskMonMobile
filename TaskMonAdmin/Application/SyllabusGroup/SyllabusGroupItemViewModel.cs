@@ -18,6 +18,9 @@ namespace TaskMonAdmin.ViewModels
         [ObservableProperty]
         private DateTime? _archiveTime;
         
+        [ObservableProperty]
+        private Guid _courseId;
+        
         public string TitleWithStatus => ArchiveTime.HasValue 
             ? Title
             : $"{Title} (Активний)";
@@ -27,7 +30,8 @@ namespace TaskMonAdmin.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "syllabusId", Id.ToString() }
+                { "syllabusId", Id.ToString() },
+                { "courseId", CourseId.ToString() }
             };
 
             await Shell.Current.GoToAsync($"SyllabusPage", navigationParameter);

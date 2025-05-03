@@ -12,6 +12,9 @@ namespace TaskMonAdmin.ViewModels
     
         [ObservableProperty]
         private Guid _id;
+        
+        [ObservableProperty]
+        private Guid _courseId;
 
         [ObservableProperty]
         private string _title;
@@ -55,7 +58,7 @@ namespace TaskMonAdmin.ViewModels
         {
             try
             {
-                var syllabus = await _syllabusesClient.GetCourseSyllabusAsync(Guid.Empty, Id);
+                var syllabus = await _syllabusesClient.GetCourseSyllabusAsync(CourseId, Id);
                 LoadFromModel(syllabus);
             }
             catch (Exception ex)

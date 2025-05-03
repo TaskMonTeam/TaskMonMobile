@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Курси"
+    x:Class="TaskMonAdmin.CoursesPage"
+    x:DataType="viewModels:CoursesPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid RowDefinitions="*">
+        <RefreshView
+            Command="{Binding RefreshDataCommand}"
+            Grid.Row="0"
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding HasNoCourses, Converter={StaticResource InvertedBoolConverter}}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Courses}" Spacing="15">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:CourseItemViewModel">
+                                <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
+                                    <Border
+                                        BackgroundColor="#FEF7FF"
+                                        Padding="15"
+                                        Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 12">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectCourseCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="*" ColumnSpacing="10">
+                                            <Label
+                                                FontSize="16"
+                                                Text="{Binding Title}"
+                                                TextColor="#49454F" />
+                                        </Grid>
+                                    </Border>
+                                </ContentView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <VerticalStackLayout
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            IsVisible="{Binding HasNoCourses}"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                Text="Немає доступних курсів"
+                TextColor="#49454F" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -3,21 +3,38 @@ using TaskMonAdmin.ViewModels;
 
 namespace TaskMonAdmin;
 
+[QueryProperty(nameof(CourseId), "courseId")]
 public partial class CreateSyllabusPage : ContentPage
 {
     private readonly CreateSyllabusPageViewModel _viewModel;
+    private string _courseId;
+
+    public string CourseId
+    {
+        get => _courseId;
+        set
+        {
+            _courseId = value;
+            if (Guid.TryParse(value, out Guid courseId))
+            {
+                _viewModel.CourseId = courseId;
+            }
+        }
+    }
 
     public CreateSyllabusPage(ITaskMonAdminClient adminClient)
     {
         InitializeComponent();
         _viewModel = new CreateSyllabusPageViewModel(adminClient);
         BindingContext = _viewModel;
-        
+    
         Shell.SetBackButtonBehavior(this, new BackButtonBehavior
         {
-            Command = new Command(async () => await Shell.Current.GoToAsync(".."))
+            Command = new Command(async () => {
+                await Shell.Current.GoToAsync($"//SyllabusGroupPage?courseId={_courseId}");
+            })
         });
-        
+    
         Loaded += OnPageLoaded;
     }
     

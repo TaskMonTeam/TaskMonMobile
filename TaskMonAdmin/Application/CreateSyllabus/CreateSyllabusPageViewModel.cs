@@ -14,6 +14,9 @@ namespace TaskMonAdmin.ViewModels
         [ObservableProperty]
         private ObservableCollection<ModuleViewModel> _modules;
         
+        [ObservableProperty]
+        private Guid _courseId;
+        
         public CreateSyllabusPageViewModel(ITaskMonAdminClient adminClient)
         {
             _adminClient = adminClient;
@@ -63,8 +66,8 @@ namespace TaskMonAdmin.ViewModels
                 
                 var request = new CreateSyllabusRequest(modulesList);
                 
-                await _adminClient.UpdateCourseSyllabus(Guid.Empty, request);
-                await Shell.Current.GoToAsync("..");
+                await _adminClient.UpdateCourseSyllabus(CourseId, request);
+                await Shell.Current.GoToAsync($"//SyllabusGroupPage?courseId={CourseId}");
             }
             catch (Exception ex)
             {
