@@ -19,11 +19,6 @@
         Title="CreateCourse" />
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:SyllabusGroupPage}"
-        Route="SyllabusGroupPage"
-        Title="SyllabusGroup" />
-
-    <ShellContent
         ContentTemplate="{DataTemplate local:CreateSyllabusPage}"
         Route="CreateSyllabusPage"
         Title="CreateSyllabus" />

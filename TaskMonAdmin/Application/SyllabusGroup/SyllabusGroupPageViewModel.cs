@@ -51,12 +51,6 @@ namespace TaskMonAdmin.ViewModels
             await Shell.Current.GoToAsync("CreateSyllabusPage", navigationParameter);
         }
         
-        [RelayCommand]
-        private async Task ReturnToCourses()
-        {
-            await Shell.Current.GoToAsync("//CoursesPage");
-        }
-        
         public async Task LoadSyllabusesAsync()
         {
             try

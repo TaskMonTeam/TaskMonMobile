@@ -42,14 +42,7 @@ public partial class SyllabusPage : ContentPage
         InitializeComponent();
         _viewModel = new SyllabusPageViewModel(syllabusesClient);
         BindingContext = _viewModel;
-    
-        Shell.SetBackButtonBehavior(this, new BackButtonBehavior
-        {
-            Command = new Command(async () => {
-                await Shell.Current.GoToAsync($"//SyllabusGroupPage?courseId={_courseId}");
-            })
-        });
-    
+        
         Loaded += OnPageLoaded;
     }
     

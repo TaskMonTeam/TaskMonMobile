@@ -12,15 +12,5 @@ public partial class CreateCoursePage : ContentPage
         InitializeComponent();
         _viewModel = new CreateCoursePageViewModel(adminClient);
         BindingContext = _viewModel;
-        
-        SetupBackButtonBehavior();
-    }
-    
-    private void SetupBackButtonBehavior()
-    {
-        Shell.SetBackButtonBehavior(this, new BackButtonBehavior
-        {
-            Command = new Command(async () => await Shell.Current.GoToAsync(".."))
-        });
     }
 }

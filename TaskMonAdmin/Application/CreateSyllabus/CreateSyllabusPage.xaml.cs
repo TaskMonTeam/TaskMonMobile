@@ -28,13 +28,6 @@ public partial class CreateSyllabusPage : ContentPage
         _viewModel = new CreateSyllabusPageViewModel(adminClient);
         BindingContext = _viewModel;
     
-        Shell.SetBackButtonBehavior(this, new BackButtonBehavior
-        {
-            Command = new Command(async () => {
-                await Shell.Current.GoToAsync($"//SyllabusGroupPage?courseId={_courseId}");
-            })
-        });
-    
         Loaded += OnPageLoaded;
     }
     
