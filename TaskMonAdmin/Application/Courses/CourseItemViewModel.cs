@@ -41,6 +41,18 @@ namespace TaskMonAdmin.ViewModels
 
             await Shell.Current.GoToAsync($"UpdateCoursePage", navigationParameter);
         }
+        
+        [RelayCommand]
+        private async Task ViewCurrentSyllabus()
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "courseId", Id.ToString() },
+                { "useCurrentSyllabus", "true" }
+            };
+
+            await Shell.Current.GoToAsync($"SyllabusPage", navigationParameter);
+        }
 
         public event EventHandler? DeleteCourseRequested;
 

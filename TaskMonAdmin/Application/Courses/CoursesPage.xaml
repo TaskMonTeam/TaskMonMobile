@@ -24,6 +24,7 @@
                             <contextMenu:ContextMenu.Menu>
                                 <DataTemplate>
                                     <contextMenu:Menu>
+                                        <contextMenu:Action Command="{Binding ViewCurrentSyllabusCommand}" Title="Активний силабус" />
                                         <contextMenu:Action Command="{Binding UpdateCourseCommand}" Title="Оновити" />
                                         <contextMenu:Action Command="{Binding DeleteCourseCommand}" Title="Видалити" />
                                     </contextMenu:Menu>

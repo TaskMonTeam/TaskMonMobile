@@ -5,11 +5,13 @@ namespace TaskMonAdmin;
 
 [QueryProperty(nameof(SyllabusId), "syllabusId")]
 [QueryProperty(nameof(CourseId), "courseId")]
+[QueryProperty(nameof(UseCurrentSyllabus), "useCurrentSyllabus")]
 public partial class SyllabusPage : ContentPage
 {
     private readonly SyllabusPageViewModel _viewModel;
     private string _syllabusId;
     private string _courseId;
+    private string _useCurrentSyllabus;
 
     public string SyllabusId
     {
@@ -34,6 +36,17 @@ public partial class SyllabusPage : ContentPage
             {
                 _viewModel.CourseId = courseId;
             }
+        }
+    }
+    
+    public string UseCurrentSyllabus
+    {
+        get => _useCurrentSyllabus;
+        set
+        {
+            _useCurrentSyllabus = value;
+            _viewModel.UseCurrentSyllabus = !string.IsNullOrEmpty(value) && 
+                                            value.Equals("true", StringComparison.OrdinalIgnoreCase);
         }
     }
 

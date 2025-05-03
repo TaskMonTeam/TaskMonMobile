@@ -31,6 +31,9 @@ namespace TaskMonAdmin.ViewModels
         [ObservableProperty]
         private bool _isRefreshing;
         
+        [ObservableProperty]
+        private bool _useCurrentSyllabus;
+        
         public string PublishTimeDisplay => $"Опубліковано: {PublishTime:dd.MM.yyyy HH:mm}";
         public string ArchiveTimeDisplay => $"Архівується: {ArchiveTime:dd.MM.yyyy HH:mm}";
 
@@ -58,7 +61,18 @@ namespace TaskMonAdmin.ViewModels
         {
             try
             {
-                var syllabus = await _syllabusesClient.GetCourseSyllabusAsync(CourseId, Id);
+                Syllabus syllabus;
+                
+                if (UseCurrentSyllabus)
+                {
+                    syllabus = await _syllabusesClient.GetCourseCurrentSyllabusAsync(CourseId);
+                    Id = syllabus.Id;
+                }
+                else
+                {
+                    syllabus = await _syllabusesClient.GetCourseSyllabusAsync(CourseId, Id);
+                }
+                
                 LoadFromModel(syllabus);
             }
             catch (Exception ex)
