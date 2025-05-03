@@ -23,6 +23,26 @@ namespace TaskMonAdmin.ViewModels
 
             await Shell.Current.GoToAsync($"SyllabusGroupPage", navigationParameter);
         }
+        
+        [RelayCommand]
+        private void DeleteCourse()
+        {
+            DeleteCourseRequested?.Invoke(this, EventArgs.Empty);
+        }
+        
+        [RelayCommand]
+        private async Task UpdateCourse()
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "courseId", Id.ToString() },
+                { "courseTitle", Title }
+            };
+
+            await Shell.Current.GoToAsync($"UpdateCoursePage", navigationParameter);
+        }
+
+        public event EventHandler? DeleteCourseRequested;
 
         public static CourseItemViewModel FromModel(Course course)
         {

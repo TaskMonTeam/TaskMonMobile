@@ -14,9 +14,6 @@ namespace TaskMonAdmin.ViewModels
         
         [ObservableProperty]
         private bool _isRefreshing;
-        
-        [ObservableProperty]
-        private bool _hasNoCourses;
 
         public CoursesPageViewModel(ITaskMonAdminClient adminClient)
         {
@@ -53,14 +50,30 @@ namespace TaskMonAdmin.ViewModels
                 
                 foreach (var course in courses)
                 {
-                    Courses.Add(CourseItemViewModel.FromModel(course));
+                    var courseViewModel = CourseItemViewModel.FromModel(course);
+                    courseViewModel.DeleteCourseRequested += OnDeleteCourseRequested;
+                    Courses.Add(courseViewModel);
                 }
-                
-                HasNoCourses = Courses.Count == 0;
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Помилка", $"Виникла помилка: {ex.Message}", "OK");
+            }
+        }
+
+        private async void OnDeleteCourseRequested(object? sender, EventArgs e)
+        {
+            if (sender is CourseItemViewModel courseViewModel)
+            {
+                try
+                {
+                    await _adminClient.DeleteCourseAsync(courseViewModel.Id);
+                    Courses.Remove(courseViewModel);
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Помилка", $"Не вдалося видалити курс: {ex.Message}", "OK");
+                }
             }
         }
     }

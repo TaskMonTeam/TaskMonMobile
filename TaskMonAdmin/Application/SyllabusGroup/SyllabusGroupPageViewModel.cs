@@ -16,9 +16,6 @@ namespace TaskMonAdmin.ViewModels
         private bool _isRefreshing;
         
         [ObservableProperty]
-        private bool _hasNoSyllabuses;
-        
-        [ObservableProperty]
         private Guid _courseId;
 
         public SyllabusGroupPageViewModel(ITaskMonAdminClient adminClient)
@@ -64,8 +61,6 @@ namespace TaskMonAdmin.ViewModels
                     viewModel.CourseId = CourseId;
                     Syllabuses.Add(viewModel);
                 }
-                
-                HasNoSyllabuses = Syllabuses.Count == 0;
             }
             catch (Exception ex)
             {

@@ -19,6 +19,11 @@
         Title="CreateCourse" />
 
     <ShellContent
+        ContentTemplate="{DataTemplate local:UpdateCoursePage}"
+        Route="UpdateCoursePage"
+        Title="UpdateCourse" />
+
+    <ShellContent
         ContentTemplate="{DataTemplate local:CreateSyllabusPage}"
         Route="CreateSyllabusPage"
         Title="CreateSyllabus" />

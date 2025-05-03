@@ -1,6 +1,7 @@
 ﻿using AdminService.Client;
 using Microsoft.Extensions.Logging;
 using Refit;
+using The49.Maui.ContextMenu;
 using UraniumUI;
 
 namespace TaskMonAdmin;
@@ -13,6 +14,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseUraniumUI()
+            .UseContextMenu()
             .UseUraniumUIMaterial()
             .ConfigureFonts(fonts =>
             {
@@ -29,6 +31,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<CreateSyllabusPage>();
         builder.Services.AddSingleton<CoursesPage>();
         builder.Services.AddSingleton<CreateCoursePage>();
+        builder.Services.AddSingleton<UpdateCoursePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
