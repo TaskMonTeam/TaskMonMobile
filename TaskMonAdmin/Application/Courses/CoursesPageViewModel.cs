@@ -37,6 +37,12 @@ namespace TaskMonAdmin.ViewModels
                 IsRefreshing = false;
             }
         }
+
+        [RelayCommand]
+        private async Task CreateCourse()
+        {
+            await Shell.Current.GoToAsync("CreateCoursePage");
+        }
         
         public async Task LoadCoursesAsync()
         {
