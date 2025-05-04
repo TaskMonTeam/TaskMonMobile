@@ -5,6 +5,7 @@
     x:Class="TaskMonAdmin.SurveyGroupsPage"
     x:DataType="viewModels:SurveyGroupsPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:common="clr-namespace:TaskMonAdmin.Common"
     xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
@@ -51,9 +52,21 @@
                             HorizontalOptions="Center"
                             Text="Немає доступних груп опитувань"
                             TextColor="#49454F" />
+                        <Button
+                            BackgroundColor="#6750A4"
+                            Command="{Binding CreateSurveyGroupPageCommand}"
+                            Margin="20"
+                            Text="Додати силабус"
+                            TextColor="White" />
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
+        <common:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            ButtonColor="#FEF7FF"
+            Command="{Binding CreateSurveyGroupPageCommand}"
+            IconSource="//plus" />
     </AbsoluteLayout>
 </ContentPage>

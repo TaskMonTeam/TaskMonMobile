@@ -103,6 +103,9 @@
       <MauiXaml Update="Application\Surveys\SurveysPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Application\CreateSurveyGroup\CreateSurveyGroupPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -139,6 +142,9 @@
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="Application\Surveys\SurveysPage.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\CreateSurveyGroup\CreateSurveyGroupPage.xaml.cs">
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

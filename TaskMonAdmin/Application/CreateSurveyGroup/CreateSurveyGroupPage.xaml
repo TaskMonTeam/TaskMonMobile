@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
+    Title="Створення групи оцінювань"
+    x:Class="TaskMonAdmin.CreateSurveyGroupPage"
+    x:DataType="viewModels:CreateSurveyGroupPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,20,30,20" Spacing="10">
+            <material:TextField Text="{Binding Title}" Title="Назва групи" />
+
+            <material:EditorField
+                HeightRequest="100"
+                Text="{Binding Description}"
+                Title="Опис групи" />
+
+            <CollectionView ItemsSource="{Binding SurveyPickers}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:SurveyPickerItemViewModel">
+                        <!--<material:PickerField
+                            AllowClear="False"
+                            ItemDisplayBinding="{Binding Title}"
+                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=AvailableSurveys}"
+                            SelectedItem="{Binding SelectedSurvey, Mode=TwoWay}"
+                            Title="Виберіть оцінювання">
+                            <material:PickerField.Attachments>
+                                <Image
+                                    HeightRequest="24"
+                                    Margin="10,0"
+                                    Source="close_circle_outline.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="24">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=RemoveSurveyPickerCommand}" CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </material:PickerField.Attachments>
+                        </material:PickerField>-->
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                            <Picker
+                                Grid.Column="0"
+                                ItemDisplayBinding="{Binding Title}"
+                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=AvailableSurveys}"
+                                SelectedItem="{Binding SelectedSurvey, Mode=TwoWay}"
+                                Title="Виберіть оцінювання" />
+
+                            <ImageButton
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=RemoveSurveyPickerCommand}"
+                                CommandParameter="{Binding .}"
+                                Grid.Column="1"
+                                HeightRequest="40"
+                                Source="//close_circle_outline"
+                                WidthRequest="40" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label
+                FontAttributes="Bold"
+                HorizontalOptions="Start"
+                Text="+ Додати оцінювання"
+                TextColor="#6750A4">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddSurveyPickerCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button
+                BackgroundColor="#6750A4"
+                Command="{Binding CreateSurveyGroupCommand}"
+                Margin="20,20,20,0"
+                Text="Створити"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
