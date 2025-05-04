@@ -32,6 +32,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<CoursesPage>();
         builder.Services.AddSingleton<CreateCoursePage>();
         builder.Services.AddSingleton<UpdateCoursePage>();
+        builder.Services.AddSingleton<SurveyGroupsPage>();
+        builder.Services.AddSingleton<SurveysPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

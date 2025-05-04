@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
     Title="{Binding Title}"
     x:Class="TaskMonAdmin.SyllabusPage"
     x:DataType="viewModels:SyllabusPageViewModel"

@@ -66,7 +66,7 @@ namespace TaskMonAdmin.ViewModels
                 
                 var request = new CreateSyllabusRequest(modulesList);
                 
-                await _adminClient.UpdateCourseSyllabus(CourseId, request);
+                await _adminClient.UpdateCourseSyllabusAsync(CourseId, request);
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)

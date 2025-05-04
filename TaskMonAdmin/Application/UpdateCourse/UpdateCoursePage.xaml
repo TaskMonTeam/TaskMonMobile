@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     BackgroundColor="White"
-    Title="Оновлення курсу"
+    Shell.TabBarIsVisible="False"
+    Title="Оновлення дисципліни"
     x:Class="TaskMonAdmin.UpdateCoursePage"
     x:DataType="viewModels:UpdateCoursePageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -18,14 +19,14 @@
         <Label
             FontSize="18"
             HorizontalOptions="Center"
-            Text="Оновіть назву курсу"
+            Text="Оновіть назву дисципліни"
             TextColor="#49454F" />
 
         <material:TextField
             BackgroundColor="Transparent"
             HorizontalOptions="Center"
             Text="{Binding CourseTitle}"
-            Title="Назва курсу"
+            Title="Назва дисципліни"
             WidthRequest="300" />
 
         <Button
