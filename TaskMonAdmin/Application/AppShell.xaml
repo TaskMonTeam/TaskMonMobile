@@ -3,6 +3,7 @@
     BackgroundColor="#FEF7FF"
     FlyoutBehavior="Disabled"
     TabBarBackgroundColor="#FEF7FF"
+    TabBarForegroundColor="#6750A4"
     TabBarTitleColor="#6750A4"
     Title="TaskMonAdmin"
     x:Class="TaskMonAdmin.AppShell"
@@ -11,14 +12,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <TabBar>
-        <Tab Title="Дисципліни">
+        <Tab Icon="book.png" Title="Дисципліни">
             <ShellContent
                 ContentTemplate="{DataTemplate local:CoursesPage}"
                 Route="CoursesPage"
-                Title="Courses" />
+                Title="Дисципліни" />
         </Tab>
 
-        <Tab Title="Оцінювання">
+        <Tab Icon="lead_pencil.png" Title="Оцінювання">
             <ShellContent
                 ContentTemplate="{DataTemplate local:SurveysPage}"
                 Route="SurveysPage"
@@ -28,6 +29,13 @@
                 ContentTemplate="{DataTemplate local:SurveyGroupsPage}"
                 Route="SurveyGroupsPage"
                 Title="Групи оцінювань" />
+        </Tab>
+
+        <Tab Icon="eye.png" Title="Моніторинг">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MonitoringPage}"
+                Route="MonitoringPage"
+                Title="Моніторинг" />
         </Tab>
     </TabBar>
 

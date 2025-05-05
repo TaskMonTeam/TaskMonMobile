@@ -16,14 +16,17 @@
             AbsoluteLayout.LayoutFlags="All"
             Command="{Binding RefreshDataCommand}"
             IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView ItemsSource="{Binding Syllabuses}" SelectionMode="None">
+            <CollectionView
+                ItemsSource="{Binding Syllabuses}"
+                SelectionMode="None"
+                StyleClass="Elevation1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:SyllabusGroupItemViewModel">
                         <ContentView Margin="15,15,15,0">
                             <Border
                                 BackgroundColor="#F7F2FA"
                                 Padding="20"
-                                Stroke="#6750A4"
+                                Stroke="Transparent"
                                 StrokeShape="RoundRectangle 12">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectSyllabusCommand}" />

@@ -20,7 +20,10 @@
             <CollectionView ItemsSource="{Binding Courses}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:CourseItemViewModel">
-                        <uranium:StatefulContentView Margin="15,15,15,0" TappedCommand="{Binding SelectCourseCommand}">
+                        <uranium:StatefulContentView
+                            Padding="5,0,5,15"
+                            StyleClass="Elevation1"
+                            TappedCommand="{Binding SelectCourseCommand}">
                             <contextMenu:ContextMenu.Menu>
                                 <DataTemplate>
                                     <contextMenu:Menu>
@@ -35,7 +38,7 @@
                                 BackgroundColor="#F7F2FA"
                                 HorizontalOptions="Fill"
                                 Padding="20"
-                                Stroke="#6750A4"
+                                Stroke="Transparent"
                                 StrokeShape="RoundRectangle 12">
                                 <Grid ColumnDefinitions="*" ColumnSpacing="10">
                                     <Label
