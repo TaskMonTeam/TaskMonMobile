@@ -101,13 +101,13 @@ namespace TaskMonMobile.ViewModels
                 
                 if (assessments.Count == 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Попередження", "Немає жодного запису часу для відправки. Будь ласка, вкажіть час хоча б для одного завдання.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Не відправлено", "Вкажіть час хоча б для одного завдання.", "OK");
                     return;
                 }
                 
                 var submission = new Submission(assessments);
                 await _surveyClient.SubmitSurveyAsync(Id, submission);
-                await Application.Current.MainPage.DisplayAlert("Успіх", "Записи часу успішно відправлені!", "OK");
+                await Application.Current.MainPage.DisplayAlert("Відправлено", "Дякуємо за відповідь!", "OK");
             }
             catch (Exception ex)
             {

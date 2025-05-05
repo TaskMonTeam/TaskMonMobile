@@ -28,7 +28,7 @@
                             <DataTemplate x:DataType="viewmodels:SurveyItemViewModel">
                                 <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
                                     <Border
-                                        BackgroundColor="#FEF7FF"
+                                        BackgroundColor="#F7F2FA"
                                         Padding="15"
                                         Stroke="Transparent"
                                         StrokeShape="RoundRectangle 12">
