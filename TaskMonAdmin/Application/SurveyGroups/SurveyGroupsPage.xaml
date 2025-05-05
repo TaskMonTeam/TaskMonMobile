@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     BackgroundColor="White"
-    Title="Групи опитувань"
+    Title="Групи оцінювань"
     x:Class="TaskMonAdmin.SurveyGroupsPage"
     x:DataType="viewModels:SurveyGroupsPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -20,7 +20,7 @@
                     <DataTemplate x:DataType="viewModels:SurveyGroupItemViewModel">
                         <ContentView Margin="15,15,15,0">
                             <Border
-                                BackgroundColor="#FEF7FF"
+                                BackgroundColor="#F7F2FA"
                                 Padding="20"
                                 Stroke="#6750A4"
                                 StrokeShape="RoundRectangle 12">
@@ -50,7 +50,7 @@
                         <Label
                             FontSize="18"
                             HorizontalOptions="Center"
-                            Text="Немає доступних груп опитувань"
+                            Text="Немає доступних груп оцінювань"
                             TextColor="#49454F" />
                         <Button
                             BackgroundColor="#6750A4"
@@ -65,7 +65,7 @@
         <common:IconButton
             AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            ButtonColor="#FEF7FF"
+            ButtonColor="#F7F2FA"
             Command="{Binding CreateSurveyGroupPageCommand}"
             IconSource="//plus" />
     </AbsoluteLayout>

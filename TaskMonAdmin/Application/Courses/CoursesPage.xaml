@@ -32,7 +32,7 @@
                             </contextMenu:ContextMenu.Menu>
 
                             <Border
-                                BackgroundColor="#FEF7FF"
+                                BackgroundColor="#F7F2FA"
                                 HorizontalOptions="Fill"
                                 Padding="20"
                                 Stroke="#6750A4"
@@ -71,7 +71,7 @@
         <common:IconButton
             AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            ButtonColor="#FEF7FF"
+            ButtonColor="#F7F2FA"
             Command="{Binding CreateCourseCommand}"
             IconSource="//plus" />
     </AbsoluteLayout>

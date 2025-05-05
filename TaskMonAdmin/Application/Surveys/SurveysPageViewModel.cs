@@ -35,6 +35,12 @@ namespace TaskMonAdmin.ViewModels
             }
         }
         
+        [RelayCommand]
+        private async Task CreateSurvey()
+        {
+            await Shell.Current.GoToAsync("CreateSurveyPage");
+        }
+        
         public async Task LoadSurveysAsync()
         {
             try

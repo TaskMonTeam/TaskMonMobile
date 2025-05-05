@@ -56,4 +56,9 @@
         Route="CreateSurveyGroupPage"
         Title="CreateSurveyGroup" />
 
+    <ShellContent
+        ContentTemplate="{DataTemplate local:CreateSurveyPage}"
+        Route="CreateSurveyPage"
+        Title="CreateSurvey" />
+
 </Shell>
