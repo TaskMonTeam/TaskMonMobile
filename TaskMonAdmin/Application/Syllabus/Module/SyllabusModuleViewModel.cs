@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using AdminService.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TaskMonAdmin.ViewModels
 {
@@ -11,6 +12,9 @@ namespace TaskMonAdmin.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<SyllabusThemeViewModel> _themes;
+        
+        [ObservableProperty]
+        private bool _isExpanded = true;
 
         public SyllabusModuleViewModel()
         {
@@ -30,12 +34,19 @@ namespace TaskMonAdmin.ViewModels
             }
             return total;
         }
+        
+        [RelayCommand]
+        private void ToggleExpanded()
+        {
+            IsExpanded = !IsExpanded;
+        }
 
         public static SyllabusModuleViewModel FromModel(Module module)
         {
             var viewModel = new SyllabusModuleViewModel
             {
-                Title = module.Title
+                Title = module.Title,
+                IsExpanded = true
             };
         
             foreach (var theme in module.Themes)
