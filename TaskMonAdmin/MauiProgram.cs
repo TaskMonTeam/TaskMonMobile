@@ -1,8 +1,12 @@
 ﻿using AdminService.Client;
+using CommunityToolkit.Maui;
+using LiveChartsCore.SkiaSharpView.Maui;
 using Microsoft.Extensions.Logging;
 using Refit;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using The49.Maui.ContextMenu;
 using UraniumUI;
+using StatisticsService.Client;
 
 namespace TaskMonAdmin;
 
@@ -13,9 +17,12 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .UseUraniumUI()
             .UseContextMenu()
             .UseUraniumUIMaterial()
+            .UseSkiaSharp()
+            .UseLiveCharts()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -25,6 +32,10 @@ public static class MauiProgram
         builder.Services.AddRefitClient<ITaskMonAdminClient>()
             .ConfigureHttpClient(c => c
                 .BaseAddress = new Uri("https://taskmonadminmock-f9gxe2aeckc6e7h6.polandcentral-01.azurewebsites.net"));
+        
+        builder.Services.AddRefitClient<IStatisticsClient>()
+            .ConfigureHttpClient(c => c
+                .BaseAddress = new Uri("https://taskmonstatisticsmock-dfbqatddducegqeb.polandcentral-01.azurewebsites.net"));
         
         builder.Services.AddSingleton<SyllabusPage>();
         builder.Services.AddSingleton<SyllabusGroupPage>();

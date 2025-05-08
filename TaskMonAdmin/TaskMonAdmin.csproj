@@ -61,13 +61,16 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc5.4" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.14"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.14" />
         <PackageReference Include="Refit" Version="8.0.0" />
         <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
         <PackageReference Include="TaskMon.AdminService.Client" Version="0.0.5" />
+        <PackageReference Include="TaskMon.StatisticsService.Client" Version="0.0.2" />
         <PackageReference Include="The49.Maui.ContextMenu" Version="1.0.0-alpha1" />
         <PackageReference Include="UraniumUI.Material" Version="2.11.1" />
     </ItemGroup>

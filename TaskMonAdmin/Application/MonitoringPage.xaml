@@ -3,16 +3,32 @@
     BackgroundColor="White"
     Title="Моніторинг"
     x:Class="TaskMonAdmin.MonitoringPage"
+    x:DataType="viewModels:MonitoringPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ContentPage.Content>
-        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Label
-                FontSize="24"
+        <Grid Padding="10">
+
+            <ActivityIndicator
+                Grid.Row="0"
                 HorizontalOptions="Center"
-                Text="Привіт"
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
                 VerticalOptions="Center" />
-        </VerticalStackLayout>
+
+            <maui:CartesianChart
+                Grid.Row="0"
+                HeightRequest="400"
+                IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                LegendPosition="Top"
+                Series="{Binding Series}"
+                XAxes="{Binding XAxes}"
+                YAxes="{Binding YAxes}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

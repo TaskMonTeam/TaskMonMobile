@@ -31,7 +31,7 @@
                 Title="Групи оцінювань" />
         </Tab>
 
-        <Tab Icon="eye.png" Title="Моніторинг">
+        <Tab Icon="chart_bar.png" Title="Моніторинг">
             <ShellContent
                 ContentTemplate="{DataTemplate local:MonitoringPage}"
                 Route="MonitoringPage"
