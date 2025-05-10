@@ -3,13 +3,13 @@ using TaskMonAdmin.ViewModels;
 
 namespace TaskMonAdmin;
 
-public partial class MonitoringPage : ContentPage
+public partial class TimelineGroupPage : ContentPage
 {
-    private MonitoringPageViewModel _viewModel;
-    public MonitoringPage(IStatisticsClient statisticsClient)
+    private TimelineGroupPageViewModel _viewModel;
+    public TimelineGroupPage(IStatisticsClient statisticsClient)
     {
         InitializeComponent();
-        _viewModel = new MonitoringPageViewModel(statisticsClient);
+        _viewModel = new TimelineGroupPageViewModel(statisticsClient);
         BindingContext = _viewModel;
     }
 

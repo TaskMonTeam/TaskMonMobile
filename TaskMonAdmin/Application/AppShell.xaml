@@ -33,9 +33,13 @@
 
         <Tab Icon="chart_bar.png" Title="Моніторинг">
             <ShellContent
-                ContentTemplate="{DataTemplate local:MonitoringPage}"
-                Route="MonitoringPage"
-                Title="Моніторинг" />
+                ContentTemplate="{DataTemplate local:TimelineGroupPage}"
+                Route="TimelineGroupPage"
+                Title="Загально" />
+            <ShellContent
+                ContentTemplate="{DataTemplate local:TimelinePage}"
+                Route="TimelinePage"
+                Title="Загально" />
         </Tab>
     </TabBar>
 

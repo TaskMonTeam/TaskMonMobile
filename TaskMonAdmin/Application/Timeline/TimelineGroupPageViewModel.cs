@@ -12,7 +12,7 @@ using LiveChartsCore.SkiaSharpView.Painting.Effects;
 
 namespace TaskMonAdmin.ViewModels;
 
-public partial class MonitoringPageViewModel : ObservableObject
+public partial class TimelineGroupPageViewModel : ObservableObject
 {
     private readonly IStatisticsClient _statisticsClient;
     private SurveyGroupResultsTimeline _surveyResults;
@@ -47,7 +47,7 @@ public partial class MonitoringPageViewModel : ObservableObject
         }
     ];
 
-    public MonitoringPageViewModel(IStatisticsClient statisticsClient)
+    public TimelineGroupPageViewModel(IStatisticsClient statisticsClient)
     {
         _statisticsClient = statisticsClient;
         Series = [];
@@ -104,22 +104,39 @@ public partial class MonitoringPageViewModel : ObservableObject
             
         return name.Substring(0, maxLength - 3) + "...";
     }
-
+    
     [RelayCommand]
     private void UpdateChart()
     {
         IEnumerable<SurveyCheckBoxItem> surveyStatistics = SurveyCheckBoxes.Where(cb => cb.IsSelected);
         List<LineSeries<float>> lineSeries = [];
 
-        var strokeDashArray = new float[] { 3 , 2, 3, 2, 1, 2};
+        var strokeDashArray = new float[] { 3, 2, 3, 2, 1, 2 };
         var effect = new DashEffect(strokeDashArray);
-        
+    
+        var colors = new[] 
+        {
+            SKColors.DodgerBlue,
+            SKColors.Crimson,
+            SKColors.ForestGreen,
+            SKColors.Orange,
+            SKColors.Purple,
+            SKColors.Teal,
+            SKColors.Brown,
+            SKColors.DarkGoldenrod
+        };
+    
+        int colorIndex = 0;
+    
         foreach (var surveyStatistic in surveyStatistics)
         {
-            var surveyName = surveyStatistic.Name.Substring(0,10);
+            var surveyName = surveyStatistic.Name.Substring(0, Math.Min(10, surveyStatistic.Name.Length));
             var actualPoints = surveyStatistic.Statistics.DataPoints;
             var predictedPoints = surveyStatistic.Statistics.PredictedPoints;
-
+        
+            var currentColor = colors[colorIndex % colors.Length];
+            colorIndex++;
+        
             lineSeries.Add(
                 new LineSeries<float>
                 {
@@ -127,12 +144,15 @@ public partial class MonitoringPageViewModel : ObservableObject
                     Name = $"{surveyName}: Факт",
                     Stroke = new SolidColorPaint()
                     {
-                        Color = SKColors.Green,
+                        Color = currentColor,
                         StrokeThickness = 2
                     },
-                    GeometrySize = 8
+                    Fill = new SolidColorPaint(currentColor.WithAlpha(80)),
+                    GeometrySize = 8,
+                    GeometryStroke = new SolidColorPaint(currentColor, 2),
+                    GeometryFill = new SolidColorPaint(SKColors.White)
                 });
-            
+        
             lineSeries.Add(
                 new LineSeries<float> 
                 { 
@@ -140,17 +160,16 @@ public partial class MonitoringPageViewModel : ObservableObject
                     Name = $"{surveyName}: Прогноз",
                     Stroke = new SolidColorPaint()
                     {
-                        Color = SKColors.Green,
+                        Color = currentColor,
                         StrokeThickness = 1,
                         PathEffect = effect,
                     },
                     Fill = new SolidColorPaint(SKColors.Transparent),
                     GeometrySize = 0
                 });
-
         }
+    
         Series = lineSeries.ToArray();
-
         OnPropertyChanged(nameof(Series));
     }
 }
