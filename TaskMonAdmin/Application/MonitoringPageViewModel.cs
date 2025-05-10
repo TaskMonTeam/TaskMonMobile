@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -16,7 +15,7 @@ namespace TaskMonAdmin.ViewModels;
 public partial class MonitoringPageViewModel : ObservableObject
 {
     private readonly IStatisticsClient _statisticsClient;
-    private SurveyGroupResults _surveyResults;
+    private SurveyGroupResultsTimeline _surveyResults;
 
     [ObservableProperty]
     private ObservableCollection<SurveyCheckBoxItem> _surveyCheckBoxes = [];
@@ -62,7 +61,7 @@ public partial class MonitoringPageViewModel : ObservableObject
         try
         {
             IsLoading = true;
-            _surveyResults = await _statisticsClient.GetSurveyGroupResults(Guid.Empty);
+            _surveyResults = await _statisticsClient.GetSurveyGroupResultsTimeline(Guid.Empty);
             
             SurveyCheckBoxes.Clear();
             
@@ -70,17 +69,17 @@ public partial class MonitoringPageViewModel : ObservableObject
             {
                 SurveyCheckBoxes.Add(new SurveyCheckBoxItem
                 {
-                    Name = surveyItem.Survey.SurveyName,
+                    Name = TruncateName(surveyItem.Survey.SurveyName, 20),
                     IsSelected = false,
-                    Statistics = surveyItem.Statistics,
+                    Statistics = surveyItem.Timeline,
                 });
             }
             
             SurveyCheckBoxes.Add(new SurveyCheckBoxItem
             {
-                Name = "Загальні дані",
+                Name = TruncateName("Загальні дані", 20),
                 IsSelected = false,
-                Statistics = _surveyResults.GlobalStatistics,
+                Statistics = _surveyResults.GlobalTimeline,
             });
 
             SurveyCheckBoxes.Last().IsSelected = true;
@@ -96,6 +95,14 @@ public partial class MonitoringPageViewModel : ObservableObject
         {
             IsLoading = false;
         }
+    }
+    
+    private string TruncateName(string name, int maxLength)
+    {
+        if (string.IsNullOrEmpty(name) || name.Length <= maxLength)
+            return name;
+            
+        return name.Substring(0, maxLength - 3) + "...";
     }
 
     [RelayCommand]
@@ -157,5 +164,5 @@ public partial class SurveyCheckBoxItem : ObservableObject
     private bool _isSelected;
 
     [ObservableProperty]
-    private Statistics _statistics;
+    private Timeline _statistics;
 }

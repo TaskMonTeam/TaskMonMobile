@@ -13,7 +13,7 @@ public partial class MonitoringPage : ContentPage
         BindingContext = _viewModel;
     }
 
-    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    private void CustomChip_SelectedChanged(object sender, bool isSelected)
     {
         _viewModel.UpdateChartCommand.Execute(null);
     }
