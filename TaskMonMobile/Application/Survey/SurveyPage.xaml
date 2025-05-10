@@ -20,6 +20,11 @@
     <RefreshView Command="{Binding RefreshDataCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView>
             <VerticalStackLayout Padding="20">
+                <Label
+                    FontSize="24"
+                    Margin="0,0,0,20"
+                    Text="Введіть кількість витраченого часу на кожне заняття"
+                    TextColor="Black" />
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding Modules}" Spacing="15">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="viewmodels:ModuleViewModel">

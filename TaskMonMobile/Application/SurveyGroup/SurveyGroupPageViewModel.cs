@@ -64,17 +64,7 @@ namespace TaskMonMobile.ViewModels
             try
             {
                 IsLoading = true;
-                var groupIdToUse = GroupId != Guid.Empty ? GroupId : Guid.Empty;
-                
-                if (groupIdToUse == Guid.Empty)
-                {
-                    HasNoSurveys = true;
-                    Title = "Опитування";
-                    IsLoading = false;
-                    return;
-                }
-                
-                var surveyGroup = await _surveyClient.GetSurveyGroupAsync(groupIdToUse);
+                var surveyGroup = await _surveyClient.GetSurveyGroupAsync(GroupId);
                 LoadFromModel(surveyGroup);
                 
                 HasNoSurveys = Surveys.Count == 0;

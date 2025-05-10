@@ -16,58 +16,46 @@
             Priority="0" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
-        <RefreshView
-            Command="{Binding RefreshDataCommand}"
-            IsRefreshing="{Binding IsRefreshing}"
-            IsVisible="{Binding HasNoSurveys, Converter={StaticResource InvertedBoolConverter}}">
-            <ScrollView>
-                <VerticalStackLayout Padding="20">
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Surveys}" Spacing="15">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="viewmodels:SurveyItemViewModel">
-                                <ContentView Margin="0,0,0,10" StyleClass="Elevation1">
-                                    <Border
-                                        BackgroundColor="#F7F2FA"
-                                        Padding="15"
-                                        Stroke="Transparent"
-                                        StrokeShape="RoundRectangle 12">
-                                        <Border.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding SelectSurveyCommand}" />
-                                        </Border.GestureRecognizers>
-                                        <VerticalStackLayout Spacing="5">
-                                            <Label
-                                                FontSize="16"
-                                                Text="{Binding Title}"
-                                                TextColor="#49454F" />
-                                        </VerticalStackLayout>
-                                    </Border>
-                                </ContentView>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </VerticalStackLayout>
+    <RefreshView Command="{Binding RefreshDataCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <CollectionView ItemsSource="{Binding Surveys}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SurveyItemViewModel">
+                    <ContentView Margin="15,15,15,0">
+                        <Border
+                            BackgroundColor="#F7F2FA"
+                            Padding="15"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 12"
+                            StyleClass="Elevation1">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectSurveyCommand}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="5">
+                                <Label
+                                    FontSize="16"
+                                    Text="{Binding Title}"
+                                    TextColor="#49454F" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="20"
+                    VerticalOptions="Center">
+                    <ActivityIndicator
+                        HorizontalOptions="Center"
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}" />
+                    <Label
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="{Binding NoSurveysMessage}"
+                        TextColor="#49454F" />
                 </VerticalStackLayout>
-            </ScrollView>
-        </RefreshView>
-
-        <RefreshView
-            Command="{Binding RefreshDataCommand}"
-            IsRefreshing="{Binding IsRefreshing}"
-            IsVisible="{Binding HasNoSurveys}">
-            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <ActivityIndicator
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsLoading}"
-                    IsVisible="{Binding IsLoading}"
-                    Margin="0,280,0,0" />
-
-                <Label
-                    FontSize="18"
-                    HorizontalOptions="Center"
-                    Margin="0,20,0,0"
-                    Text="{Binding NoSurveysMessage}"
-                    TextColor="Gray" />
-            </VerticalStackLayout>
-        </RefreshView>
-    </Grid>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </RefreshView>
 </ContentPage>

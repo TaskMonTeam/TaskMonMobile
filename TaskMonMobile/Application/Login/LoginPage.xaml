@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     BackgroundColor="White"
-    Title="Логін"
+    Shell.NavBarIsVisible="False"
     x:Class="TaskMonMobile.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <VerticalStackLayout
+        HorizontalOptions="Center"
         Padding="30"
         Spacing="25"
-        VerticalOptions="Center">
-
-        <Image
-            HeightRequest="100"
-            HorizontalOptions="Center"
-            Source="dotnet_bot.png"
-            WidthRequest="100" />
+        VerticalOptions="CenterAndExpand">
 
         <Label
-            FontSize="22"
+            FontSize="25"
             HorizontalOptions="Center"
-            Text="Вітаємо в TaskMon"
-            TextColor="Black"
-            VerticalOptions="Center" />
+            Text="Дисципліни Групи"
+            TextColor="Black" />
 
-        <Button
-            BackgroundColor="#6200EE"
-            Clicked="OnLoginClicked"
+        <Label
+            FontSize="15"
             HorizontalOptions="Center"
-            Text="Залогінитись з Auth0"
-            TextColor="White"
+            HorizontalTextAlignment="Center"
+            Text="Вас було запрошено для оцінювання навчального навантаження"
+            TextColor="Black" />
+
+        <Image
+            HeightRequest="200"
+            HorizontalOptions="Center"
+            Source="dotnet_bot.png"
             WidthRequest="200" />
 
+        <Border
+            BackgroundColor="#E7E0EC"
+            Stroke="Transparent"
+            StrokeShape="RoundRectangle 12"
+            StyleClass="Elevation1">
+            <StackLayout Padding="15">
+                <Label
+                    FontSize="16"
+                    Text="Увійдіть в аккаунт щоб продовжити"
+                    TextColor="Black" />
+                <Label
+                    FontSize="13"
+                    Margin="0,5,0,0"
+                    Text="Опитуваня прогоходять анонімно, адміністрація закладу не бачитиме ваші дані. Авторизація необхідна лише для ідентифікації різних користувачів та збереження відповідей."
+                    TextColor="#6D6D6D" />
+            </StackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLoginClicked" />
+            </Border.GestureRecognizers>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>

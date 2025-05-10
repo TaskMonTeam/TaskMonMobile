@@ -47,8 +47,6 @@ public partial class SurveyGroupPage : ContentPage
             if (!string.IsNullOrEmpty(GroupId))
             {
                 Preferences.Remove("LastOpenedGroupId");
-                GroupId = string.Empty;
-                _viewModel.GroupId = Guid.Empty;
             }
         }
     }

@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <ActivityIndicator
+            Color="#65558F"
             HeightRequest="50"
             HorizontalOptions="Center"
             IsRunning="True"
@@ -13,7 +14,7 @@
         <Label
             FontSize="18"
             HorizontalOptions="Center"
-            Margin="0,20,0,0"
-            Text="Зачекайте..." />
+            Margin="0,30,0,0"
+            Text="Будь ласка, зачекайте" />
     </VerticalStackLayout>
 </ContentPage>
