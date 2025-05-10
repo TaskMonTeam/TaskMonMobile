@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using AdminService.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TaskMonAdmin.ViewModels
 {
@@ -30,6 +31,13 @@ namespace TaskMonAdmin.ViewModels
         public override string ToString()
         {
             return Title;
+        }
+
+        [RelayCommand]
+        private async Task CopySurveyLink()
+        {
+            var link = $"https://taskmon.com/surveys/invite/{Id}";
+            await Clipboard.SetTextAsync(link);
         }
 
         public static SurveyItemViewModel FromModel(Survey survey)

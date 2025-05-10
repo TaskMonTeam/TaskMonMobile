@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
+    Title="Посилання"
+    x:Class="TaskMonAdmin.LinkPage"
+    x:DataType="viewModels:LinkPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto, Auto, *"
+        RowSpacing="20"
+        VerticalOptions="Center">
+
+        <Label
+            FontSize="18"
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            Text="Посилання для запрошення"
+            TextColor="#49454F" />
+
+        <Border
+            BackgroundColor="#F7F2FA"
+            Grid.Row="1"
+            Padding="20"
+            Stroke="Transparent"
+            StrokeShape="RoundRectangle 12">
+            <Label
+                HorizontalOptions="Center"
+                LineBreakMode="CharacterWrap"
+                MaxLines="2"
+                Text="{Binding Link}"
+                TextColor="#49454F" />
+        </Border>
+
+        <Button
+            BackgroundColor="#6750A4"
+            Command="{Binding CopyToClipboardCommand}"
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            Margin="15,0,15,0"
+            Text="Скопіювати"
+            TextColor="White" />
+    </Grid>
+</ContentPage>

@@ -112,6 +112,9 @@
       <MauiXaml Update="Application\CreateSurvey\CreateSurveyPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Application\Link\LinkPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -154,6 +157,9 @@
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="Application\CreateSurvey\CreateSurveyPage.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\Link\LinkPage.xaml.cs">
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

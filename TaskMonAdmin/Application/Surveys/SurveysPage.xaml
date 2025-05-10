@@ -6,6 +6,8 @@
     x:DataType="viewModels:SurveysPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:common="clr-namespace:TaskMonAdmin.Common"
+    xmlns:contextMenu="https://schemas.the49.com/dotnet/2023/maui"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
@@ -21,7 +23,19 @@
                 StyleClass="Elevation1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:SurveyItemViewModel">
-                        <ContentView Margin="15,15,15,0">
+                        <uranium:StatefulContentView
+                            CommandParameter="{Binding}"
+                            Padding="15,15,15,0"
+                            StyleClass="Elevation1"
+                            TappedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SurveysPageViewModel}}, Path=OpenSurveyLinkCommand}">
+                            <contextMenu:ContextMenu.Menu>
+                                <DataTemplate>
+                                    <contextMenu:Menu>
+                                        <contextMenu:Action Command="{Binding CopySurveyLinkCommand}" Title="Копіювати посилання" />
+                                    </contextMenu:Menu>
+                                </DataTemplate>
+                            </contextMenu:ContextMenu.Menu>
+
                             <Border
                                 BackgroundColor="#F7F2FA"
                                 Padding="20"
@@ -42,7 +56,7 @@
                                         VerticalOptions="Center" />
                                 </Grid>
                             </Border>
-                        </ContentView>
+                        </uranium:StatefulContentView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>

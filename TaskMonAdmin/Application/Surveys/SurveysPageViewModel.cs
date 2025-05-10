@@ -40,6 +40,18 @@ namespace TaskMonAdmin.ViewModels
         {
             await Shell.Current.GoToAsync("CreateSurveyPage");
         }
+
+        [RelayCommand]
+        private async Task OpenSurveyLink(SurveyItemViewModel survey)
+        {
+            var link = $"https://taskmon.com/surveys/invite/{survey.Id}";
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Link", link }
+            };
+            
+            await Shell.Current.GoToAsync("LinkPage", navigationParameter);
+        }
         
         public async Task LoadSurveysAsync()
         {

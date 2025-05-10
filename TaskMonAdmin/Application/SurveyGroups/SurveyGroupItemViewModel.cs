@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using AdminService.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TaskMonAdmin.ViewModels
 {
@@ -26,6 +27,13 @@ namespace TaskMonAdmin.ViewModels
         public string TitleWithStatus => IsActive 
             ? $"{Title} (Активне)"
             : Title;
+        
+        [RelayCommand]
+        private async Task CopySurveyGroupLink()
+        {
+            var link = $"https://taskmon.com/groups/invite/{Id}";
+            await Clipboard.SetTextAsync(link);
+        }
 
         public static SurveyGroupItemViewModel FromModel(SurveyGroup surveyGroup)
         {
