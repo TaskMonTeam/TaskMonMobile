@@ -22,9 +22,8 @@
             <CollectionView ItemsSource="{Binding SurveyPickers}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:SurveyPickerItemViewModel">
-                        <!--<material:PickerField
+                        <material:PickerField
                             AllowClear="False"
-                            ItemDisplayBinding="{Binding Title}"
                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=AvailableSurveys}"
                             SelectedItem="{Binding SelectedSurvey, Mode=TwoWay}"
                             Title="Виберіть оцінювання">
@@ -40,23 +39,7 @@
                                     </Image.GestureRecognizers>
                                 </Image>
                             </material:PickerField.Attachments>
-                        </material:PickerField>-->
-                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                            <Picker
-                                Grid.Column="0"
-                                ItemDisplayBinding="{Binding Title}"
-                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=AvailableSurveys}"
-                                SelectedItem="{Binding SelectedSurvey, Mode=TwoWay}"
-                                Title="Виберіть оцінювання" />
-
-                            <ImageButton
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CreateSurveyGroupPageViewModel}}, Path=RemoveSurveyPickerCommand}"
-                                CommandParameter="{Binding .}"
-                                Grid.Column="1"
-                                HeightRequest="40"
-                                Source="//close_circle_outline"
-                                WidthRequest="40" />
-                        </Grid>
+                        </material:PickerField>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

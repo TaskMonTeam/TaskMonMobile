@@ -26,6 +26,11 @@ namespace TaskMonAdmin.ViewModels
         public string TitleWithStatus => IsActive 
             ? $"{Title} (Активне)"
             : Title;
+        
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public static SurveyItemViewModel FromModel(Survey survey)
         {

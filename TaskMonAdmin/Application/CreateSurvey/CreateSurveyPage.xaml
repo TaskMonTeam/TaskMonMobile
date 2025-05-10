@@ -19,15 +19,8 @@
                 Text="{Binding Description}"
                 Title="Опис оцінювання" />
 
-            <!--<material:PickerField
+            <material:PickerField
                 AllowClear="False"
-                ItemDisplayBinding="{Binding Title}"
-                ItemsSource="{Binding AvailableCourses}"
-                SelectedItem="{Binding SelectedCourse, Mode=TwoWay}"
-                Title="Виберіть дисципліну" />-->
-
-            <Picker
-                ItemDisplayBinding="{Binding Title}"
                 ItemsSource="{Binding AvailableCourses}"
                 SelectedItem="{Binding SelectedCourse, Mode=TwoWay}"
                 Title="Виберіть дисципліну" />

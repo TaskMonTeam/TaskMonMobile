@@ -53,6 +53,11 @@ namespace TaskMonAdmin.ViewModels
 
             await Shell.Current.GoToAsync($"SyllabusPage", navigationParameter);
         }
+        
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public event EventHandler? DeleteCourseRequested;
 
