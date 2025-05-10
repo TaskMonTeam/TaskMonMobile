@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -8,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using StatisticsService.Client;
 using StatisticsService.Client.Models;
 using System.Collections.ObjectModel;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
 
 namespace TaskMonAdmin.ViewModels;
 
@@ -17,16 +19,13 @@ public partial class MonitoringPageViewModel : ObservableObject
     private SurveyGroupResults _surveyResults;
 
     [ObservableProperty]
-    private ObservableCollection<SurveyCheckBoxItem> _surveyCheckBoxes = new();
+    private ObservableCollection<SurveyCheckBoxItem> _surveyCheckBoxes = [];
 
     [ObservableProperty]
     private ISeries[] _series;
 
     [ObservableProperty]
-    private bool _isLoading = false;
-
-    [ObservableProperty]
-    private string _selectedSurveyName = "Усі";
+    private bool _isLoading;
 
     public ICartesianAxis[] XAxes { get; set; } = [
         new Axis
@@ -44,6 +43,7 @@ public partial class MonitoringPageViewModel : ObservableObject
             CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
             CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed),
             CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
+            Labeler = value => value.ToString("N1"),
             CrosshairSnapEnabled = true
         }
     ];
@@ -51,23 +51,7 @@ public partial class MonitoringPageViewModel : ObservableObject
     public MonitoringPageViewModel(IStatisticsClient statisticsClient)
     {
         _statisticsClient = statisticsClient;
-        Series = [
-            new LineSeries<double> 
-            { 
-                Values = [], 
-                Name = "Фактичні дані",
-                Stroke = new SolidColorPaint(SKColors.Blue, 2),
-                GeometryStroke = new SolidColorPaint(SKColors.Blue, 2)
-            },
-            new LineSeries<double> 
-            { 
-                Values = [], 
-                Name = "Прогнозовані дані",
-                Stroke = new SolidColorPaint(SKColors.Green, 2),
-                GeometryStroke = new SolidColorPaint(SKColors.Green, 2),
-                Fill = new SolidColorPaint(SKColors.Green.WithAlpha(40))
-            }
-        ];
+        Series = [];
 
         _ = LoadSurveyData();
     }
@@ -81,12 +65,6 @@ public partial class MonitoringPageViewModel : ObservableObject
             _surveyResults = await _statisticsClient.GetSurveyGroupResults(Guid.Empty);
             
             SurveyCheckBoxes.Clear();
-            SurveyCheckBoxes.Add(new SurveyCheckBoxItem 
-            { 
-                Name = "Усі", 
-                IsSelected = true,
-                SurveyId = Guid.Empty
-            });
             
             foreach (var surveyItem in _surveyResults.Statistics)
             {
@@ -94,11 +72,20 @@ public partial class MonitoringPageViewModel : ObservableObject
                 {
                     Name = surveyItem.Survey.SurveyName,
                     IsSelected = false,
-                    SurveyId = surveyItem.Survey.SurveyId
+                    Statistics = surveyItem.Statistics,
                 });
             }
             
-            UpdateChartWithGlobalStatistics();
+            SurveyCheckBoxes.Add(new SurveyCheckBoxItem
+            {
+                Name = "Загальні дані",
+                IsSelected = false,
+                Statistics = _surveyResults.GlobalStatistics,
+            });
+
+            SurveyCheckBoxes.Last().IsSelected = true;
+            
+            UpdateChart();
         }
         catch (Exception ex)
         {
@@ -112,78 +99,50 @@ public partial class MonitoringPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SelectSurvey(SurveyCheckBoxItem selectedItem)
+    private void UpdateChart()
     {
-        foreach (var item in SurveyCheckBoxes)
-        {
-            item.IsSelected = false;
-        }
+        IEnumerable<SurveyCheckBoxItem> surveyStatistics = SurveyCheckBoxes.Where(cb => cb.IsSelected);
+        List<LineSeries<float>> lineSeries = [];
+
+        var strokeDashArray = new float[] { 3 , 2, 3, 2, 1, 2};
+        var effect = new DashEffect(strokeDashArray);
         
-        selectedItem.IsSelected = true;
-        SelectedSurveyName = selectedItem.Name;
-        
-        if (selectedItem.Name == "Усі")
+        foreach (var surveyStatistic in surveyStatistics)
         {
-            UpdateChartWithGlobalStatistics();
+            var surveyName = surveyStatistic.Name.Substring(0,10);
+            var actualPoints = surveyStatistic.Statistics.DataPoints;
+            var predictedPoints = surveyStatistic.Statistics.PredictedPoints;
+
+            lineSeries.Add(
+                new LineSeries<float>
+                {
+                    Values = actualPoints,
+                    Name = $"{surveyName}: Факт",
+                    Stroke = new SolidColorPaint()
+                    {
+                        Color = SKColors.Green,
+                        StrokeThickness = 2
+                    },
+                    GeometrySize = 8
+                });
+            
+            lineSeries.Add(
+                new LineSeries<float> 
+                { 
+                    Values = predictedPoints, 
+                    Name = $"{surveyName}: Прогноз",
+                    Stroke = new SolidColorPaint()
+                    {
+                        Color = SKColors.Green,
+                        StrokeThickness = 1,
+                        PathEffect = effect,
+                    },
+                    Fill = new SolidColorPaint(SKColors.Transparent),
+                    GeometrySize = 0
+                });
+
         }
-        else
-        {
-            UpdateChartWithSurveyStatistics(selectedItem.SurveyId);
-        }
-    }
-
-    private void UpdateChartWithGlobalStatistics()
-    {
-        if (_surveyResults?.GlobalStatistics == null)
-            return;
-
-        var actualPoints = _surveyResults.GlobalStatistics.DataPoints
-            .Select(p => (double)p)
-            .ToArray();
-
-        var predictedPoints = _surveyResults.GlobalStatistics.PredictedPoints
-            .Select(p => (double)p)
-            .ToArray();
-
-        UpdateChart(actualPoints, predictedPoints);
-    }
-
-    private void UpdateChartWithSurveyStatistics(Guid surveyId)
-    {
-        var surveyStats = _surveyResults?.Statistics?.FirstOrDefault(s => s.Survey.SurveyId == surveyId);
-        if (surveyStats?.Statistics == null)
-            return;
-
-        var actualPoints = surveyStats.Statistics.DataPoints
-            .Select(p => (double)p)
-            .ToArray();
-
-        var predictedPoints = surveyStats.Statistics.PredictedPoints
-            .Select(p => (double)p)
-            .ToArray();
-
-        UpdateChart(actualPoints, predictedPoints);
-    }
-
-    private void UpdateChart(double[] actualPoints, double[] predictedPoints)
-    {
-        Series = [
-            new LineSeries<double> 
-            { 
-                Values = actualPoints, 
-                Name = "Фактичні дані",
-                Stroke = new SolidColorPaint(SKColors.Blue, 2),
-                GeometryStroke = new SolidColorPaint(SKColors.Blue, 2)
-            },
-            new LineSeries<double> 
-            { 
-                Values = predictedPoints, 
-                Name = "Прогнозовані дані",
-                Stroke = new SolidColorPaint(SKColors.Green, 2),
-                GeometryStroke = new SolidColorPaint(SKColors.Green, 2),
-                Fill = new SolidColorPaint(SKColors.Green.WithAlpha(40))
-            }
-        ];
+        Series = lineSeries.ToArray();
 
         OnPropertyChanged(nameof(Series));
     }
@@ -198,5 +157,5 @@ public partial class SurveyCheckBoxItem : ObservableObject
     private bool _isSelected;
 
     [ObservableProperty]
-    private Guid _surveyId;
+    private Statistics _statistics;
 }
