@@ -49,7 +49,7 @@ namespace TaskMonAdmin.ViewModels
                 { "groupId", groupId }
             };
             
-            await Shell.Current.GoToAsync("TimelineGroupPage", navigationParameter);
+            await Shell.Current.GoToAsync("DiagramsGroupPage", navigationParameter);
         }
         
         public async Task LoadSurveyGroupResultsAsync()

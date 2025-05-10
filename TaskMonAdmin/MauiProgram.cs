@@ -47,8 +47,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<SurveysPage>();
         builder.Services.AddSingleton<CreateSurveyGroupPage>();
         builder.Services.AddSingleton<CreateSurveyPage>();
-        builder.Services.AddSingleton<TimelineGroupPage>();
-        builder.Services.AddSingleton<TimelinePage>();
+        builder.Services.AddSingleton<DiagramsGroupPage>();
+        builder.Services.AddSingleton<DiagramsPage>();
         builder.Services.AddSingleton<LinkPage>();
         builder.Services.AddSingleton<ResultsSurveyGroupsPage>();
         builder.Services.AddSingleton<ResultsSurveysPage>();

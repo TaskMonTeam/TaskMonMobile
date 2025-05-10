@@ -49,7 +49,7 @@ namespace TaskMonAdmin.ViewModels
                 { "surveyId", surveyId }
             };
             
-            await Shell.Current.GoToAsync("TimelinePage", navigationParameter);
+            await Shell.Current.GoToAsync("DiagramsPage", navigationParameter);
         }
         
         public async Task LoadSurveyResultsAsync()

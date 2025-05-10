@@ -4,9 +4,9 @@ using TaskMonAdmin.ViewModels;
 namespace TaskMonAdmin;
 
 [QueryProperty(nameof(SurveyId), "surveyId")]
-public partial class TimelinePage : ContentPage
+public partial class DiagramsPage : ContentPage
 {
-    private TimelinePageViewModel _viewModel;
+    private DiagramsPageViewModel _viewModel;
     
     private Guid _surveyId;
     public Guid SurveyId
@@ -15,18 +15,15 @@ public partial class TimelinePage : ContentPage
         set
         {
             _surveyId = value;
-            if (_viewModel != null)
-            {
-                _viewModel.SurveyId = value;
-                _ = _viewModel.LoadSurveyData();
-            }
+            _viewModel.SurveyId = value;
+            _ = _viewModel.LoadSurveyData();
         }
     }
     
-    public TimelinePage(IStatisticsClient statisticsClient)
+    public DiagramsPage(IStatisticsClient statisticsClient)
     {
         InitializeComponent();
-        _viewModel = new TimelinePageViewModel(statisticsClient);
+        _viewModel = new DiagramsPageViewModel(statisticsClient);
         BindingContext = _viewModel;
     }
 }

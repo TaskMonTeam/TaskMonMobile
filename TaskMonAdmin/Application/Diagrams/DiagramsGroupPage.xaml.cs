@@ -4,9 +4,9 @@ using TaskMonAdmin.ViewModels;
 namespace TaskMonAdmin;
 
 [QueryProperty(nameof(GroupId), "groupId")]
-public partial class TimelineGroupPage : ContentPage
+public partial class DiagramsGroupPage : ContentPage
 {
-    private TimelineGroupPageViewModel _viewModel;
+    private DiagramsGroupPageViewModel _viewModel;
     
     private Guid _groupId;
     public Guid GroupId
@@ -15,18 +15,15 @@ public partial class TimelineGroupPage : ContentPage
         set
         {
             _groupId = value;
-            if (_viewModel != null)
-            {
-                _viewModel.GroupId = value;
-                _ = _viewModel.LoadSurveyData();
-            }
+            _viewModel.GroupId = value;
+            _ = _viewModel.LoadSurveyData();
         }
     }
     
-    public TimelineGroupPage(IStatisticsClient statisticsClient)
+    public DiagramsGroupPage(IStatisticsClient statisticsClient)
     {
         InitializeComponent();
-        _viewModel = new TimelineGroupPageViewModel(statisticsClient);
+        _viewModel = new DiagramsGroupPageViewModel(statisticsClient);
         BindingContext = _viewModel;
     }
 

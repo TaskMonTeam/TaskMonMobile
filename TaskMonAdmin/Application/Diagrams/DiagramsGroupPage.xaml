@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
+    Title="Діаграми"
+    x:Class="TaskMonAdmin.DiagramsGroupPage"
+    x:DataType="viewModels:DiagramsGroupPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:controls="clr-namespace:TaskMonAdmin.Controls"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <material:TabView>
+
+        <material:TabItem Title="Загально">
+            <material:TabItem.ContentTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+
+                        <ScrollView Margin="0,0,0,10" MaximumHeightRequest="150">
+                            <FlexLayout
+                                AlignItems="Center"
+                                BindableLayout.ItemsSource="{Binding SurveyCheckBoxes}"
+                                JustifyContent="Start"
+                                Wrap="Wrap">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="viewModels:SurveyCheckBoxItem">
+                                        <controls:CustomChip
+                                            IsSelected="{Binding IsSelected, Mode=TwoWay}"
+                                            Margin="4"
+                                            SelectedChanged="CustomChip_SelectedChanged"
+                                            Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </ScrollView>
+
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            VerticalOptions="Center" />
+
+                        <maui:CartesianChart
+                            HeightRequest="300"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                            Series="{Binding Series}"
+                            XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}" />
+
+                        <Label
+                            FontAttributes="Italic"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            Margin="20,0"
+                            Text="* Цей графік побудовано з припущенням, що завдання були розподілено рівномірно, та у порядку, зазаначеному в силабусі." />
+
+                    </StackLayout>
+                </DataTemplate>
+            </material:TabItem.ContentTemplate>
+        </material:TabItem>
+
+        <material:TabItem Title="Розподіл студентів">
+            <material:TabItem.ContentTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="20">
+
+                        <material:PickerField
+                            AllowClear="False"
+                            ItemsSource="{Binding DistributionItems}"
+                            SelectedItem="{Binding SelectedDistributionItem}"
+                            Title="Оберіть оцінювання" />
+
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            VerticalOptions="Center" />
+
+
+                        <maui:PieChart
+                            HeightRequest="480"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                            LegendPosition="Bottom"
+                            Margin="20"
+                            Series="{Binding PieSeries}"
+                            WidthRequest="400" />
+
+                    </StackLayout>
+                </DataTemplate>
+            </material:TabItem.ContentTemplate>
+        </material:TabItem>
+    </material:TabView>
+</ContentPage>

@@ -46,14 +46,14 @@
     </TabBar>
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:TimelineGroupPage}"
-        Route="TimelineGroupPage"
-        Title="Загально" />
+        ContentTemplate="{DataTemplate local:DiagramsGroupPage}"
+        Route="DiagramsGroupPage"
+        Title="Діаграми" />
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:TimelinePage}"
-        Route="TimelinePage"
-        Title="Загально" />
+        ContentTemplate="{DataTemplate local:DiagramsPage}"
+        Route="DiagramsPage"
+        Title="Діаграми" />
 
     <ShellContent
         ContentTemplate="{DataTemplate local:CreateCoursePage}"

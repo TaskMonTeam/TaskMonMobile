@@ -9,25 +9,58 @@ using StatisticsService.Client;
 using StatisticsService.Client.Models;
 using System.Collections.ObjectModel;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
+using StatisticsService.Client.Models.StudentCategorization;
 
 namespace TaskMonAdmin.ViewModels;
 
-public partial class TimelineGroupPageViewModel : ObservableObject
+public partial class DiagramsGroupPageViewModel : ObservableObject
 {
     private readonly IStatisticsClient _statisticsClient;
     private SurveyGroupResultsTimeline _surveyResults;
+    private SurveyGroupResultsCategorization _categorizationResults;
 
     [ObservableProperty]
     private ObservableCollection<SurveyCheckBoxItem> _surveyCheckBoxes = [];
 
     [ObservableProperty]
+    private ObservableCollection<DistributionPickerItem> _distributionItems = [];
+
+    [ObservableProperty]
+    private DistributionPickerItem _selectedDistributionItem;
+
+    [ObservableProperty]
     private ISeries[] _series;
+
+    [ObservableProperty]
+    private IEnumerable<ISeries> _pieSeries;
 
     [ObservableProperty]
     private bool _isLoading;
     
     [ObservableProperty]
     private Guid _groupId;
+
+    private readonly Dictionary<WorkloadCategories, SKColor> _categoryColors = new()
+    {
+        { WorkloadCategories.OnTrack, SKColors.ForestGreen },
+        { WorkloadCategories.Overload20, SKColors.Orange },
+        { WorkloadCategories.Overload50, SKColors.OrangeRed },
+        { WorkloadCategories.CriticalOverload, SKColors.Crimson },
+        { WorkloadCategories.Underload20, SKColors.SkyBlue },
+        { WorkloadCategories.Underload35, SKColors.RoyalBlue },
+        { WorkloadCategories.CriticalUnderload, SKColors.DarkBlue }
+    };
+
+    private readonly Dictionary<WorkloadCategories, string> _categoryNames = new()
+    {
+        { WorkloadCategories.OnTrack, "В нормі" },
+        { WorkloadCategories.Overload20, "Перевантажені на 20%" },
+        { WorkloadCategories.Overload50, "Перевантажені на 50%" },
+        { WorkloadCategories.CriticalOverload, "Критично перевантажені" },
+        { WorkloadCategories.Underload20, "Недовантажені на 20%" },
+        { WorkloadCategories.Underload35, "Недовантажені на 35%" },
+        { WorkloadCategories.CriticalUnderload, "Критично недовантажені" }
+    };
 
     public ICartesianAxis[] XAxes { get; set; } = [
         new Axis
@@ -50,10 +83,11 @@ public partial class TimelineGroupPageViewModel : ObservableObject
         }
     ];
 
-    public TimelineGroupPageViewModel(IStatisticsClient statisticsClient)
+    public DiagramsGroupPageViewModel(IStatisticsClient statisticsClient)
     {
         _statisticsClient = statisticsClient;
         Series = [];
+        PieSeries = [];
     }
 
     [RelayCommand]
@@ -62,6 +96,7 @@ public partial class TimelineGroupPageViewModel : ObservableObject
         try
         {
             IsLoading = true;
+            
             _surveyResults = await _statisticsClient.GetSurveyGroupResultsTimeline(GroupId);
             
             SurveyCheckBoxes.Clear();
@@ -85,7 +120,31 @@ public partial class TimelineGroupPageViewModel : ObservableObject
 
             SurveyCheckBoxes.Last().IsSelected = true;
             
+            _categorizationResults = await _statisticsClient.GetSurveyGroupResultsCategorization(GroupId);
+            
+            DistributionItems.Clear();
+            
+            DistributionItems.Add(new DistributionPickerItem
+            {
+                Name = "Загальні дані",
+                Distribution = _categorizationResults.Global.Distribution,
+                IsSelected = true
+            });
+            
+            foreach (var survey in _categorizationResults.Surveys)
+            {
+                DistributionItems.Add(new DistributionPickerItem
+                {
+                    Name = TruncateName(survey.Survey.SurveyName, 20),
+                    Distribution = survey.Categorization.Distribution,
+                    IsSelected = false
+                });
+            }
+            
+            SelectedDistributionItem = DistributionItems.First();
+            
             UpdateChart();
+            UpdatePieChart();
         }
         catch (Exception ex)
         {
@@ -173,6 +232,50 @@ public partial class TimelineGroupPageViewModel : ObservableObject
         Series = lineSeries.ToArray();
         OnPropertyChanged(nameof(Series));
     }
+    
+    [RelayCommand]
+    private void UpdatePieChart()
+    {
+        var distribution = SelectedDistributionItem.Distribution;
+        
+        if (distribution.Count == 0)
+        {
+            PieSeries = [];
+            OnPropertyChanged(nameof(PieSeries));
+            return;
+        }
+        
+        var values = new List<ISeries>();
+        
+        foreach (var item in distribution)
+        {
+            if (item.Value > 0)
+            {
+                var category = item.Key;
+                var count = item.Value;
+                var categoryName = _categoryNames.TryGetValue(category, out var name) ? name : category.ToString();
+                var categoryColor = _categoryColors.TryGetValue(category, out var color) ? color : SKColors.Gray;
+                
+                values.Add(new PieSeries<int>
+                {
+                    Values = new[] { count },
+                    Name = categoryName,
+                    Fill = new SolidColorPaint(categoryColor)
+                });
+            }
+        }
+        
+        PieSeries = values;
+        OnPropertyChanged(nameof(PieSeries));
+    }
+    
+    partial void OnSelectedDistributionItemChanged(DistributionPickerItem value)
+    {
+        if (value != null)
+        {
+            UpdatePieChart();
+        }
+    }
 }
 
 public partial class SurveyCheckBoxItem : ObservableObject
@@ -185,4 +288,21 @@ public partial class SurveyCheckBoxItem : ObservableObject
 
     [ObservableProperty]
     private Timeline _statistics;
+}
+
+public partial class DistributionPickerItem : ObservableObject
+{
+    [ObservableProperty]
+    private string _name;
+
+    [ObservableProperty]
+    private IDictionary<WorkloadCategories, int> _distribution;
+
+    [ObservableProperty]
+    private bool _isSelected;
+    
+    public override string ToString()
+    {
+        return Name;
+    }
 }

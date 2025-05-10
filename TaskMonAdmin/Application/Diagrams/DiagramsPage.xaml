@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
+    Title="Діаграми"
+    x:Class="TaskMonAdmin.DiagramsPage"
+    x:DataType="viewmodels:DiagramsPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:viewmodels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <material:TabView>
+
+        <material:TabItem Title="Загально">
+            <material:TabItem.ContentTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="20">
+
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            VerticalOptions="Center" />
+
+                        <lvc:CartesianChart
+                            HeightRequest="300"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                            Series="{Binding Series}"
+                            XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}" />
+
+                        <Label
+                            FontAttributes="Italic"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            Margin="20,0"
+                            Text="* Цей графік побудовано з припущенням, що завдання були розподілено рівномірно, та у порядку, зазаначеному в силабусі." />
+
+                    </StackLayout>
+                </DataTemplate>
+            </material:TabItem.ContentTemplate>
+        </material:TabItem>
+
+        <material:TabItem Title="Розподіл студентів">
+            <material:TabItem.ContentTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="20">
+
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            VerticalOptions="Center" />
+
+                        <lvc:PieChart
+                            HeightRequest="480"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                            LegendPosition="Bottom"
+                            Margin="20"
+                            Series="{Binding PieSeries}"
+                            WidthRequest="400" />
+
+                    </StackLayout>
+                </DataTemplate>
+            </material:TabItem.ContentTemplate>
+        </material:TabItem>
+    </material:TabView>
+</ContentPage>
