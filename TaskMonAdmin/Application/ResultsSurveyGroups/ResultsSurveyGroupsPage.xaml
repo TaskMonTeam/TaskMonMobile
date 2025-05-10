@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Групи оцінювань"
+    x:Class="TaskMonAdmin.ResultsSurveyGroupsPage"
+    x:DataType="viewModels:ResultsSurveyGroupsPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <StackLayout>
+        <RefreshView Command="{Binding RefreshDataCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding SurveyGroupResults}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:SurveyGroupResultItemViewModel">
+                        <ContentView Padding="15,15,15,0" StyleClass="Elevation1">
+                            <Border
+                                BackgroundColor="#F7F2FA"
+                                Padding="20"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 12">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ResultsSurveyGroupsPageViewModel}}, Path=NavigateToTimelineCommand}" CommandParameter="{Binding GroupId}" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="0">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Margin="0,0,0,10"
+                                        Text="{Binding Title}" />
+                                    <Label FontSize="14" Text="{Binding Subjects, StringFormat='Кількість предметів: {0}'}" />
+                                    <Label FontSize="14" Text="{Binding PartialSubmissions, StringFormat='Оцінювання розпочало: {0}'}" />
+                                    <Label FontSize="14" Text="{Binding CompleteSubmissions, StringFormat='Оцінювання пройшло: {0}'}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout
+                        HorizontalOptions="Center"
+                        Spacing="20"
+                        VerticalOptions="Center">
+                        <Label
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="Немає даних про результати груп оцінювань"
+                            TextColor="#49454F" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>

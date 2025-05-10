@@ -25,6 +25,9 @@ public partial class TimelineGroupPageViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _isLoading;
+    
+    [ObservableProperty]
+    private Guid _groupId;
 
     public ICartesianAxis[] XAxes { get; set; } = [
         new Axis
@@ -51,17 +54,15 @@ public partial class TimelineGroupPageViewModel : ObservableObject
     {
         _statisticsClient = statisticsClient;
         Series = [];
-
-        _ = LoadSurveyData();
     }
 
     [RelayCommand]
-    private async Task LoadSurveyData()
+    public async Task LoadSurveyData()
     {
         try
         {
             IsLoading = true;
-            _surveyResults = await _statisticsClient.GetSurveyGroupResultsTimeline(Guid.Empty);
+            _surveyResults = await _statisticsClient.GetSurveyGroupResultsTimeline(GroupId);
             
             SurveyCheckBoxes.Clear();
             

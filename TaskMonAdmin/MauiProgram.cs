@@ -50,6 +50,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<TimelineGroupPage>();
         builder.Services.AddSingleton<TimelinePage>();
         builder.Services.AddSingleton<LinkPage>();
+        builder.Services.AddSingleton<ResultsSurveyGroupsPage>();
+        builder.Services.AddSingleton<ResultsSurveysPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

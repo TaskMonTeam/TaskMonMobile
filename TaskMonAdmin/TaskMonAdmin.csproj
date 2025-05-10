@@ -70,7 +70,7 @@
         <PackageReference Include="Refit" Version="8.0.0" />
         <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
         <PackageReference Include="TaskMon.AdminService.Client" Version="0.0.5" />
-        <PackageReference Include="TaskMon.StatisticsService.Client" Version="0.0.4" />
+        <PackageReference Include="TaskMon.StatisticsService.Client" Version="0.0.5" />
         <PackageReference Include="The49.Maui.ContextMenu" Version="1.0.0-alpha1" />
         <PackageReference Include="UraniumUI.Material" Version="2.11.1" />
     </ItemGroup>
@@ -119,6 +119,12 @@
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="Application\Timeline\TimelinePage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Application\ResultsSurveyGroups\ResultsSurveyGroupsPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Application\ResultsSurveys\ResultsSurveysPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
@@ -174,6 +180,13 @@
       </Compile>
       <Compile Update="Application\Timeline\TimelinePage.xaml.cs">
         <DependentUpon>TimelinePage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\ResultsSurveyGroups\ResultsSurveyGroupsPage.xaml.cs">
+        <DependentUpon>ResultsSurveyGroupsPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Application\ResultsSurveys\ResultsSurveysPage.xaml.cs">
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

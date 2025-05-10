@@ -32,16 +32,28 @@
         </Tab>
 
         <Tab Icon="chart_bar.png" Title="Моніторинг">
+
             <ShellContent
-                ContentTemplate="{DataTemplate local:TimelineGroupPage}"
-                Route="TimelineGroupPage"
-                Title="Загально" />
+                ContentTemplate="{DataTemplate local:ResultsSurveysPage}"
+                Route="ResultsSurveysPage"
+                Title="Оцінювання" />
+
             <ShellContent
-                ContentTemplate="{DataTemplate local:TimelinePage}"
-                Route="TimelinePage"
-                Title="Загально" />
+                ContentTemplate="{DataTemplate local:ResultsSurveyGroupsPage}"
+                Route="ResultsSurveyGroupsPage"
+                Title="Групи оцінювань" />
         </Tab>
     </TabBar>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:TimelineGroupPage}"
+        Route="TimelineGroupPage"
+        Title="Загально" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:TimelinePage}"
+        Route="TimelinePage"
+        Title="Загально" />
 
     <ShellContent
         ContentTemplate="{DataTemplate local:CreateCoursePage}"
