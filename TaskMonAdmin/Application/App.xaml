@@ -13,6 +13,14 @@
                 <ResourceDictionary Source="/Resources/Styles/Styles.xaml" x:Name="appStyles" />
 
                 <material:StyleResource BasedOn="{x:Reference appStyles}" ColorsOverride="{x:Reference appColors}" />
+                <ResourceDictionary>
+                    <Style
+                        ApplyToDerivedTypes="True"
+                        Class="TabView.Header"
+                        TargetType="Layout">
+                        <Setter Property="BackgroundColor" Value="#FEF7FF" />
+                    </Style>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
