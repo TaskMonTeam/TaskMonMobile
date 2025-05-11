@@ -50,4 +50,28 @@ public partial class SurveyPage : ContentPage
     {
         await _viewModel.LoadSurveyDataAsync();
     }
+    
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+        
+        if (Guid.TryParse(_surveyId, out Guid surveyId))
+        {
+            string key = $"CompletedSurvey_{_viewModel.GroupId}_{surveyId}";
+            bool isCompleted = Preferences.Get(key, false);
+            
+            if (isCompleted)
+            {
+                if (Shell.Current.Navigation.NavigationStack.Count > 1)
+                {
+                    var previousPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 2];
+                    if (previousPage is SurveyGroupPage surveyGroupPage && 
+                        surveyGroupPage.BindingContext is SurveyGroupPageViewModel viewModel)
+                    {
+                        viewModel.MarkSurveyAsCompleted(surveyId);
+                    }
+                }
+            }
+        }
+    }
 }

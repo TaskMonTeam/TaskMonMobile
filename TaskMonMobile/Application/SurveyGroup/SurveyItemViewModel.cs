@@ -10,9 +10,20 @@ namespace TaskMonMobile.ViewModels
 
         [ObservableProperty]
         private string _title;
+        
+        [ObservableProperty]
+        private bool _isCompleted;
 
         public SurveyGroupPageViewModel ParentViewModel { get; set; }
 
-        public ICommand SelectSurveyCommand => new Command(() => ParentViewModel.NavigateToSurveyCommand.Execute(Id));
+        public string CompletionStatus => IsCompleted ? "Пройдено" : "Не пройдено";
+
+        public ICommand SelectSurveyCommand => new Command(() => 
+        {
+            if (!IsCompleted)
+            {
+                ParentViewModel.NavigateToSurveyCommand.Execute(Id);
+            }
+        });
     }
 }

@@ -32,8 +32,13 @@
                             </Border.GestureRecognizers>
                             <VerticalStackLayout Spacing="5">
                                 <Label
+                                    FontAttributes="Bold"
                                     FontSize="16"
                                     Text="{Binding Title}"
+                                    TextColor="#49454F" />
+                                <Label
+                                    FontSize="14"
+                                    Text="{Binding CompletionStatus}"
                                     TextColor="#49454F" />
                             </VerticalStackLayout>
                         </Border>

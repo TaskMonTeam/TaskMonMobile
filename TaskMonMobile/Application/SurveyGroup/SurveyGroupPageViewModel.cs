@@ -73,6 +73,8 @@ namespace TaskMonMobile.ViewModels
                 {
                     Title = "Опитування";
                 }
+                
+                LoadCompletedSurveyStatus();
             }
             catch (Exception ex)
             {
@@ -103,6 +105,27 @@ namespace TaskMonMobile.ViewModels
                     Title = survey.Title,
                     ParentViewModel = this
                 });
+            }
+        }
+        
+        private void LoadCompletedSurveyStatus()
+        {
+            foreach (var survey in Surveys)
+            {
+                string key = $"CompletedSurvey_{GroupId}_{survey.Id}";
+                bool isCompleted = Preferences.Get(key, false);
+                survey.IsCompleted = isCompleted;
+            }
+        }
+        
+        public void MarkSurveyAsCompleted(Guid surveyId)
+        {
+            var survey = Surveys.FirstOrDefault(s => s.Id == surveyId);
+            if (survey != null)
+            {
+                survey.IsCompleted = true;
+                string key = $"CompletedSurvey_{GroupId}_{surveyId}";
+                Preferences.Set(key, true);
             }
         }
 

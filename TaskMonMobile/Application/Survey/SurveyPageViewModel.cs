@@ -113,7 +113,16 @@ namespace TaskMonMobile.ViewModels
                     : new Submission(assessments);
                 
                 await _surveyClient.SubmitSurveyAsync(Id, submission);
+                
+                if (GroupId.HasValue)
+                {
+                    string key = $"CompletedSurvey_{GroupId.Value}_{Id}";
+                    Preferences.Set(key, true);
+                }
+                
                 await Application.Current.MainPage.DisplayAlert("Відправлено", "Дякуємо за відповідь!", "OK");
+                
+                await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)
             {
