@@ -12,6 +12,9 @@ namespace TaskMonMobile.ViewModels
     
         [ObservableProperty]
         private Guid _id;
+        
+        [ObservableProperty]
+        private Guid? _groupId;
 
         [ObservableProperty]
         private string _title;
@@ -80,7 +83,7 @@ namespace TaskMonMobile.ViewModels
             {
                 IsSubmitting = true;
                 var assessments = new List<Assessment>();
-                
+            
                 foreach (var module in Modules)
                 {
                     foreach (var theme in module.Themes)
@@ -98,14 +101,17 @@ namespace TaskMonMobile.ViewModels
                         }
                     }
                 }
-                
+            
                 if (assessments.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("Не відправлено", "Вкажіть час хоча б для одного завдання.", "OK");
                     return;
                 }
                 
-                var submission = new Submission(assessments);
+                Submission submission = GroupId.HasValue
+                    ? new Submission(assessments, GroupId.Value)
+                    : new Submission(assessments);
+                
                 await _surveyClient.SubmitSurveyAsync(Id, submission);
                 await Application.Current.MainPage.DisplayAlert("Відправлено", "Дякуємо за відповідь!", "OK");
             }

@@ -108,7 +108,7 @@ namespace TaskMonMobile.ViewModels
 
         private async Task NavigateToSurvey(Guid surveyId)
         {
-            await Shell.Current.GoToAsync($"SurveyPage?surveyId={surveyId}");
+            await Shell.Current.GoToAsync($"SurveyPage?surveyId={surveyId}&groupId={GroupId}");
         }
     }
 }
