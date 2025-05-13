@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     BackgroundColor="White"
-    Title="Дисципліни"
+    Title="Список дисциплін"
     x:Class="TaskMonAdmin.CoursesPage"
     x:DataType="viewModels:CoursesPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"

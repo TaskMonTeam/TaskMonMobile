@@ -1,5 +1,6 @@
 ﻿using AdminService.Client;
 using CommunityToolkit.Maui;
+using ImportService.Client;
 using LiveChartsCore.SkiaSharpView.Maui;
 using Microsoft.Extensions.Logging;
 using Refit;
@@ -37,6 +38,10 @@ public static class MauiProgram
             .ConfigureHttpClient(c => c
                 .BaseAddress = new Uri("https://taskmonstatisticsmock-dfbqatddducegqeb.polandcentral-01.azurewebsites.net"));
         
+        builder.Services.AddRefitClient<IImportClient>()
+            .ConfigureHttpClient(c => c
+                .BaseAddress = new Uri("https://taskmonimportmock-fwcthjbxcscyf6dc.polandcentral-01.azurewebsites.net"));
+        
         builder.Services.AddSingleton<SyllabusPage>();
         builder.Services.AddSingleton<SyllabusGroupPage>();
         builder.Services.AddSingleton<CreateSyllabusPage>();
@@ -52,6 +57,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<LinkPage>();
         builder.Services.AddSingleton<ResultsSurveyGroupsPage>();
         builder.Services.AddSingleton<ResultsSurveysPage>();
+        builder.Services.AddSingleton<ImportSyllabusPage>();
+        builder.Services.AddSingleton<ImportedSyllabusesPage>();
+        builder.Services.AddSingleton<SyllabusImportedPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

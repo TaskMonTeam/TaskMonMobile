@@ -16,7 +16,12 @@
             <ShellContent
                 ContentTemplate="{DataTemplate local:CoursesPage}"
                 Route="CoursesPage"
-                Title="Дисципліни" />
+                Title="Список дисциплін" />
+
+            <ShellContent
+                ContentTemplate="{DataTemplate local:ImportedSyllabusesPage}"
+                Route="ImportedSyllabusesPage"
+                Title="Імпорт" />
         </Tab>
 
         <Tab Icon="lead_pencil.png" Title="Оцінювання">
@@ -44,6 +49,11 @@
                 Title="Групи оцінювань" />
         </Tab>
     </TabBar>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:ImportSyllabusPage}"
+        Route="ImportSyllabusPage"
+        Title="Імпорт силабусу" />
 
     <ShellContent
         ContentTemplate="{DataTemplate local:DiagramsGroupPage}"
@@ -74,6 +84,11 @@
         ContentTemplate="{DataTemplate local:SyllabusPage}"
         Route="SyllabusPage"
         Title="Syllabus" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:SyllabusImportedPage}"
+        Route="SyllabusImportedPage"
+        Title="SyllabusImported" />
 
     <ShellContent
         ContentTemplate="{DataTemplate local:CreateSurveyGroupPage}"

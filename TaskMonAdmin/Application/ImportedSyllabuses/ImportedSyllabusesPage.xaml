@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Title="Імпортовані Силабуси"
+    x:Class="TaskMonAdmin.ImportedSyllabusesPage"
+    x:DataType="viewModels:ImportedSyllabusesPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:common="clr-namespace:TaskMonAdmin.Common"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <AbsoluteLayout>
+        <RefreshView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            Command="{Binding RefreshDataCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView
+                ItemsSource="{Binding Documents}"
+                SelectionMode="None"
+                StyleClass="Elevation1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:ImportedSyllabusItemViewModel">
+                        <ContentView Padding="15,15,15,0">
+                            <Border
+                                BackgroundColor="#F7F2FA"
+                                Padding="20"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 12">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToDetailsCommand}" />
+                                </Border.GestureRecognizers>
+                                <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
+                                    <Label
+                                        FontSize="16"
+                                        Grid.Row="0"
+                                        Text="{Binding OriginalFilename}"
+                                        TextColor="#49454F" />
+                                    <Label
+                                        FontSize="14"
+                                        Grid.Row="1"
+                                        Text="{Binding StatusText}"
+                                        TextColor="#625B71" />
+                                </Grid>
+                            </Border>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout
+                        HorizontalOptions="Center"
+                        Spacing="20"
+                        VerticalOptions="Center">
+                        <Label
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="Немає імпортованих силабусів"
+                            TextColor="#49454F" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+        <common:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            ButtonColor="#F7F2FA"
+            Command="{Binding NavigateToImportCommand}"
+            IconSource="//plus" />
+    </AbsoluteLayout>
+</ContentPage>

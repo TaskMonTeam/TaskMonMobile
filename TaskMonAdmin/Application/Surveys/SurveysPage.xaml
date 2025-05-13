@@ -45,7 +45,7 @@
                                     <VerticalStackLayout Grid.Column="0" Spacing="5">
                                         <Label
                                             FontSize="16"
-                                            Text="{Binding TitleWithStatus}"
+                                            Text="{Binding Title}"
                                             TextColor="#49454F" />
                                     </VerticalStackLayout>
                                     <Label

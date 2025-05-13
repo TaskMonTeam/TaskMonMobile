@@ -1,0 +1,45 @@
+<ContentPage
+    BackgroundColor="White"
+    Shell.TabBarIsVisible="False"
+    Title="Імпорт Силабусу"
+    x:Class="TaskMonAdmin.ImportSyllabusPage"
+    x:DataType="viewModels:ImportSyllabusPageViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        Padding="20"
+        Spacing="20"
+        VerticalOptions="Center">
+
+        <Label
+            FontSize="18"
+            HorizontalOptions="Center"
+            Text="Оберіть PDF файл для імпорту" />
+
+        <Button
+            BackgroundColor="#6750A4"
+            Command="{Binding PickAndImportFileCommand}"
+            HorizontalOptions="Center"
+            Text="Обрати файл"
+            TextColor="White"
+            WidthRequest="200" />
+
+        <Label
+            HorizontalOptions="Center"
+            Text="{Binding FileName}"
+            TextColor="#49454F" />
+
+        <Button
+            BackgroundColor="#6750A4"
+            Command="{Binding ImportSyllabusCommand}"
+            HorizontalOptions="Center"
+            IsEnabled="{Binding IsFileSelected}"
+            Text="Імпортувати"
+            TextColor="White"
+            WidthRequest="200" />
+
+    </VerticalStackLayout>
+</ContentPage>

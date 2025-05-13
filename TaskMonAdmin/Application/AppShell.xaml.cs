@@ -16,5 +16,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("LinkPage", typeof(LinkPage));
         Routing.RegisterRoute("DiagramsPage", typeof(DiagramsPage));
         Routing.RegisterRoute("DiagramsGroupPage", typeof(DiagramsGroupPage));
+        Routing.RegisterRoute("ImportSyllabusPage", typeof(ImportSyllabusPage));
+        Routing.RegisterRoute("ImportedSyllabusesPage", typeof(ImportedSyllabusesPage));
+        Routing.RegisterRoute("SyllabusImportedPage", typeof(SyllabusImportedPage));
     }
 }
