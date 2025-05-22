@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False"
+    x:Class="TaskMonAdmin.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="CenterAndExpand">
+
+        <Label
+            FontSize="25"
+            HorizontalOptions="Center"
+            Text="TaskMon"
+            TextColor="Black" />
+
+        <Label
+            FontSize="15"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="Створюйте оцінювання для студентів не напрягаючись"
+            TextColor="Black" />
+
+        <Image
+            HeightRequest="200"
+            HorizontalOptions="Center"
+            Source="dotnet_bot.png"
+            WidthRequest="200" />
+
+        <Border
+            BackgroundColor="#E7E0EC"
+            HorizontalOptions="Center"
+            Stroke="Transparent"
+            StrokeShape="RoundRectangle 12"
+            StyleClass="Elevation1">
+            <StackLayout Padding="15">
+                <Label
+                    FontSize="16"
+                    Text="Увійдіть в аккаунт щоб продовжити"
+                    TextColor="Black" />
+            </StackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLoginClicked" />
+            </Border.GestureRecognizers>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

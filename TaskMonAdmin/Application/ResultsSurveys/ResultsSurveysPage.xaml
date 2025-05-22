@@ -8,6 +8,14 @@
     xmlns:viewModels="clr-namespace:TaskMonAdmin.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Clicked="OnLogoutClicked"
+            IconImageSource="//exit_to_app.png"
+            Order="Primary"
+            Priority="0" />
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <RefreshView Command="{Binding RefreshDataCommand}" IsRefreshing="{Binding IsRefreshing}">
             <CollectionView ItemsSource="{Binding SurveyResults}" SelectionMode="None">
